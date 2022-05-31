@@ -11,6 +11,14 @@
     </bpmn:userTask>
     <bpmn:sequenceFlow id="SequenceFlow_12smwbc" sourceRef="UserTask_Approve" targetRef="UserTask_UploadDocument" />
     <bpmn:userTask id="UserTask_UploadDocument" name="Upload document" camunda:formKey="embedded:app:forms/task-form-pdf-upload.html">
+      <bpmn:extensionElements>
+        <camunda:executionListener class="" event="start" />
+        <camunda:taskListener class="" event="create">
+          <camunda:field name="">
+            <camunda:string></camunda:string>
+          </camunda:field>
+        </camunda:taskListener>
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_12smwbc</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0zocbfw</bpmn:outgoing>
     </bpmn:userTask>

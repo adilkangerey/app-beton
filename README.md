@@ -1,4 +1,4 @@
-
+#jaspersoft studio 6.19.1
 #HELP generate exist table classes in db and repository 
 for use run `mvn jpa-entity-generator:generateAll`
 

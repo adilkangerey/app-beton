@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jdbcDataAdapter class="net.sf.jasperreports.data.jdbc.JdbcDataAdapterImpl">
+  <name>DataAdapterH2</name>
+  <driver>org.h2.Driver</driver>
+  <username>sa</username>
+  <password></password>
+  <url>jdbc:h2:file:C:\Users\00041275\Downloads\app-beton\db/test</url>
+  <database></database>
+  <savePassword>true</savePassword>
+  <serverAddress></serverAddress>
+</jdbcDataAdapter>

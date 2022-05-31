@@ -4,7 +4,7 @@ jdbcSettings:
   password: "masterkey"
   driverClassName: "org.firebirdsql.jdbc.FBDriver"
 
-packageName: "barakat.app.aggregator.entity.tctransport.model"
+packageName: "barakat.app.aggregator.entity.tctransport.model.gen"
 
 tableExclusionRules:
   - tableNames: ["FxLogHistory", "FxLogImages", "IBE.*$", "devScripts", "devVersions", "^.*_VIEW"]
@@ -12,6 +12,6 @@ tableExclusionRules:
 interfaceRules:
   # If you just specify the interfaces, all the generated classes'll implement the interfaces.
   - interfaces: [{name: "java.io.Serializable"}]
-
+#
 #jpa1SupportRequired: true
-#packageNameForJpa1: "barakat.app.aggregator.entity.tctransport.dao"
+#packageNameForJpa1: "tctransport"
