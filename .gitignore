@@ -2,6 +2,7 @@
 db
 #исключение properties файла
 cronproperties
+report/.metadata
 #исключение сгенерированных данных
 src/main/java/barakat/app/aggregator/entity/tctransport/model/gen
 src/main/java/barakat/app/aggregator/entity/tctransport/repository/gen

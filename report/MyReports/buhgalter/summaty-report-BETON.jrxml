@@ -56,8 +56,13 @@
 	</style>
 	<subDataset name="tableDataset" uuid="483169aa-f0e6-4ee7-9a8f-f09de967c59a">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<parameter name="ID" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+		</parameter>
 		<queryString language="SQL">
-			<![CDATA[select * from bkcategories]]>
+			<![CDATA[SELECT *
+FROM "BKCATEGORIES"]]>
 		</queryString>
 		<field name="ID" class="java.lang.Integer">
 			<property name="com.jaspersoft.studio.field.name" value="ID"/>
@@ -79,6 +84,7 @@
 			<property name="com.jaspersoft.studio.field.label" value="SName"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="BKCATEGORIES"/>
 		</field>
+		<filterExpression><![CDATA[$F{ID}==$P{ID}]]></filterExpression>
 	</subDataset>
 	<parameter name="start" class="java.util.Date">
 		<parameterDescription><![CDATA[начало]]></parameterDescription>
@@ -155,7 +161,7 @@
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
 				</reportElement>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="Blank">
 					<datasetRun subDataset="tableDataset" uuid="8dffd812-bfd8-4365-923d-f3361da0ba56">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>

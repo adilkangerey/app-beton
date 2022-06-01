@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Cherry" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13acf49e-4913-4d1b-bccc-113817ad15d1">
-	<property name="com.jaspersoft.studio.data.sql.tables">
-		<![CDATA[IkJLQ0FURUdPUklFUyIgLDE1LDE1LDdmNmQ4MzYxLWFmYjQtNDMzNS1iN2JhLTgzNDEwYzFjOTYw
-YTs=]]>
-	</property>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false"/>
@@ -70,9 +67,34 @@ YTs=]]>
 			<property name="com.jaspersoft.studio.field.tree.path" value="BKCATEGORIES"/>
 		</field>
 	</subDataset>
+	<parameter name="ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
 	<queryString language="SQL">
-		<![CDATA[]]>
+		<![CDATA[SELECT *
+FROM "BKCATEGORIES"]]>
 	</queryString>
+	<field name="ID" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="ID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="BKCATEGORIES"/>
+	</field>
+	<field name="Enabled" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="Enabled"/>
+		<property name="com.jaspersoft.studio.field.label" value="Enabled"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="BKCATEGORIES"/>
+	</field>
+	<field name="Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Name"/>
+		<property name="com.jaspersoft.studio.field.label" value="Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="BKCATEGORIES"/>
+	</field>
+	<field name="SName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SName"/>
+		<property name="com.jaspersoft.studio.field.label" value="SName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="BKCATEGORIES"/>
+	</field>
+	<filterExpression><![CDATA[$F{ID}==$P{ID}]]></filterExpression>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
