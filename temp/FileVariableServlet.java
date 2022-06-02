@@ -1,20 +1,19 @@
 package temp;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.logging.Logger;
+import org.apache.commons.io.IOUtils;
+import org.camunda.bpm.BpmPlatform;
+import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.variable.value.FileValue;
+import org.camunda.bpm.engine.variable.value.TypedValue;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.io.IOUtils;
-import org.camunda.bpm.BpmPlatform;
-import org.camunda.bpm.engine.ProcessEngine;
-import org.camunda.bpm.engine.variable.value.FileValue;
-import org.camunda.bpm.engine.variable.value.TypedValue;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Logger;
 
 
 @WebServlet(value = "/file-variable", loadOnStartup = 1)

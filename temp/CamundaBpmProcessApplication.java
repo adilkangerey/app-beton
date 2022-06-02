@@ -1,13 +1,5 @@
 package temp;
 
-import static org.camunda.bpm.engine.authorization.Permissions.READ;
-import static org.camunda.bpm.engine.authorization.Resources.FILTER;
-import static com.camunda.consulting.util.FilterGenerator.*;
-import static com.camunda.consulting.util.UserGenerator.*;
-
-import java.util.Collection;
-import java.util.List;
-
 import org.camunda.bpm.application.PostDeploy;
 import org.camunda.bpm.application.ProcessApplication;
 import org.camunda.bpm.application.impl.ServletProcessApplication;
@@ -15,9 +7,13 @@ import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.authorization.Authorization;
 import org.camunda.bpm.model.bpmn.instance.UserTask;
 
-import com.camunda.consulting.util.LicenseHelper;
+import java.util.Collection;
+import java.util.List;
 
-import com.camunda.demo.environment.DemoDataGenerator;
+import static com.camunda.consulting.util.FilterGenerator.*;
+import static com.camunda.consulting.util.UserGenerator.*;
+import static org.camunda.bpm.engine.authorization.Permissions.READ;
+import static org.camunda.bpm.engine.authorization.Resources.FILTER;
 
 /**
  * Process Application exposing this application's resources to the process engine.

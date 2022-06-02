@@ -13,6 +13,6 @@ import java.util.List;
 */
 @Repository
 public interface WunitsCustomRepository extends JpaRepository<Wunits, Integer>, JpaSpecificationExecutor<Wunits> {
-    @Query(value = "select e from barakat.app.aggregator.entity.tctransport.model.gen.Wunits e where e.id >= :id and e.id < (:id+1000)")
-    List<Wunits> queryById(Integer id);
+    @Query(value = "select e from barakat.app.aggregator.entity.tctransport.model.gen.Wunits e where e.id >= :id and e.id < (:id+:count)")
+    List<Wunits> queryById(Integer id, Integer count);
 }

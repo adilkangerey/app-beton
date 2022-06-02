@@ -1,11 +1,9 @@
 package temp;
 
-import java.util.logging.Logger;
-
-import org.camunda.bpm.engine.authorization.Authorization;
-import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.DelegateTask;
 import org.camunda.bpm.engine.delegate.TaskListener;
+
+import java.util.logging.Logger;
 
 
 /**

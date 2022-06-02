@@ -13,6 +13,6 @@ import java.util.List;
 */
 @Repository
 public interface QWrecsCustomRepository extends JpaRepository<QWrecs, Integer>, JpaSpecificationExecutor<QWrecs> {
-    @Query(value = "select e from barakat.app.aggregator.entity.tctransport.model.gen.QWrecs e where e.id >= :id and e.id < (:id+3000)")
-    List<QWrecs> queryById(Integer id);
+    @Query(value = "select e from barakat.app.aggregator.entity.tctransport.model.gen.QWrecs e where e.id >= :id and e.id < (:id+:count)")
+    List<QWrecs> queryById(Integer id, Integer count);
 }

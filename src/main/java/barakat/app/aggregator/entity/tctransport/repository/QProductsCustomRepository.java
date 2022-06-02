@@ -14,6 +14,6 @@ import java.util.List;
 @Repository
 public interface QProductsCustomRepository extends JpaRepository<QProducts, Integer>, JpaSpecificationExecutor<QProducts> {
 
-    @Query(value = "select e from barakat.app.aggregator.entity.tctransport.model.gen.QProducts e where e.id >= :id and e.id < (:id+3000)")
-    List<QProducts> queryById(Integer id);
+    @Query(value = "select e from barakat.app.aggregator.entity.tctransport.model.gen.QProducts e where e.id >= :id and e.id < (:id+:count)")
+    List<QProducts> queryById(Integer id, Integer count);
 }

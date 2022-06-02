@@ -14,6 +14,6 @@ import java.util.List;
 @Repository
 public interface QEvlogCustomRepository extends JpaRepository<QEvlog, Integer>, JpaSpecificationExecutor<QEvlog> {
 
-    @Query(value = "select e from barakat.app.aggregator.entity.tctransport.model.gen.QEvlog e where e.id >= :id and e.id < (:id+3000)")
-    List<QEvlog> queryById(Integer id);
+    @Query(value = "select e from barakat.app.aggregator.entity.tctransport.model.gen.QEvlog e where e.id >= :id and e.id < (:id+:count)")
+    List<QEvlog> queryById(Integer id, Integer count);
 }

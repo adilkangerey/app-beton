@@ -13,6 +13,6 @@ import java.util.List;
 */
 @Repository
 public interface WmainCustomRepository extends JpaRepository<Wmain, Integer>, JpaSpecificationExecutor<Wmain> {
-    @Query(value = "select e from barakat.app.aggregator.entity.tctransport.model.gen.Wmain e where e.id >= :id and e.id < (:id+3000)")
-    List<Wmain> queryById(Integer id);
+    @Query(value = "select e from barakat.app.aggregator.entity.tctransport.model.gen.Wmain e where e.id >= :id and e.id < (:id+:count)")
+    List<Wmain> queryById(Integer id, Integer count);
 }

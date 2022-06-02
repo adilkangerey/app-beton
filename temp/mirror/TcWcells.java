@@ -2,7 +2,6 @@ package barakat.app.aggregator.entity.app.model.mirror;
 
 import lombok.Data;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**

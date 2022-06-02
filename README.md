@@ -8,6 +8,17 @@ next use `mvn spring-data-generator:repositories`
 
 https://github.com/cmeza20/spring-data-generator
 
+#Добавить в сеттингс .m2/settings.xml для считывания https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts/com/lowagie/itext/2.1.7.js9/itext-2.1.7.js9.jar  
+
+```xml
+<repository>
+  <id>central67</id>
+  <url>https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts</url>
+  <releases><enabled>true</enabled></releases>
+  <snapshots><enabled>true</enabled></snapshots>
+</repository>
+```
+
 #Пример работы с несколькими базами
 https://github.com/eugenp/tutorials/blob/master/persistence-modules/spring-data-jpa-enterprise-2
 

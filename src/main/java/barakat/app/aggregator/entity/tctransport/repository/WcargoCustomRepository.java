@@ -13,6 +13,6 @@ import java.util.List;
 */
 @Repository
 public interface WcargoCustomRepository extends JpaRepository<Wcargo, Integer>, JpaSpecificationExecutor<Wcargo> {
-    @Query(value = "select e from barakat.app.aggregator.entity.tctransport.model.gen.Wcargo e where e.id >= :id and e.id < (:id+3000)")
-    List<Wcargo> queryById(Integer id);
+    @Query(value = "select e from barakat.app.aggregator.entity.tctransport.model.gen.Wcargo e where e.id >= :id and e.id < (:id+:count)")
+    List<Wcargo> queryById(Integer id, Integer count);
 }

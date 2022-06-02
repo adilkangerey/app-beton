@@ -1,7 +1,7 @@
 #исключение H2 БД данных
 db
 #исключение properties файла
-cronproperties
+cronproperties*
 report/.metadata
 #исключение сгенерированных данных
 src/main/java/barakat/app/aggregator/entity/tctransport/model/gen

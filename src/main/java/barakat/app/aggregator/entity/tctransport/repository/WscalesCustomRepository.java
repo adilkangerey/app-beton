@@ -13,6 +13,6 @@ import java.util.List;
 */
 @Repository
 public interface WscalesCustomRepository extends JpaRepository<Wscales, Integer>, JpaSpecificationExecutor<Wscales> {
-    @Query(value = "select e from barakat.app.aggregator.entity.tctransport.model.gen.Wscales e where e.id >= :id and e.id < (:id+3000)")
-    List<Wscales> queryById(Integer id);
+    @Query(value = "select e from barakat.app.aggregator.entity.tctransport.model.gen.Wscales e where e.id >= :id and e.id < (:id+:count)")
+    List<Wscales> queryById(Integer id, Integer count);
 }
