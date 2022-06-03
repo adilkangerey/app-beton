@@ -1,11 +1,8 @@
 #исключение H2 БД данных
 db
 #исключение properties файла
-cronproperties*
+properties
 report/.metadata
-#исключение сгенерированных данных
-src/main/java/barakat/app/aggregator/entity/tctransport/model/gen
-src/main/java/barakat/app/aggregator/entity/tctransport/repository/gen
 
 #Базовый игнор
 .metadata
