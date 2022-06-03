@@ -20,11 +20,20 @@ public class CronProperties {
     @Value("${property.path}")
     String propertyFolder;
 
-    public void  save(String name, String value) throws CronPropertiesException {
+    Boolean hasPropertyFolder = false;
 
 
-        File file = new File(propertyFolder+"/cronproperties-" + profile);
+    private Properties propertiesfn(File file) throws CronPropertiesException {
+        if(!hasPropertyFolder){
+            File folder = new File(propertyFolder);
+            if(!folder.exists()){
+                folder.mkdirs();
+            }
+            hasPropertyFolder = true;
+        }
+        if (file == null) {file =  new File(propertyFolder+"/cronproperties-" + profile);};
         if(!file.exists()){
+            log.info(2);
             try {
                 file.createNewFile();
             }catch (Exception e){
@@ -34,28 +43,29 @@ public class CronProperties {
         try {
             Properties properties  = new Properties();
             properties.load(new FileInputStream(file));
-            properties.setProperty(name, value);
-            properties.save(new FileOutputStream(file), "сохранение данных");
+            return  properties;
         }catch (Exception e){
             throw new CronPropertiesException("Не удалось найти файл для учета данных крона");
         }
     }
 
-    public String get(String name) throws CronPropertiesException {
+    public void  save(String name, String value) throws CronPropertiesException {
         try {
             File file = new File(propertyFolder+"/cronproperties-" + profile);
-            if(!file.exists()){
-                try {
-                    file.createNewFile();
-                }catch (Exception e){
-                    throw new CronPropertiesException("Не удалось создать файл для учета данных крона");
-                }
-            }
-            Properties properties  = new Properties();
-            properties.load(new FileInputStream(file));
+            Properties properties  = propertiesfn(file);
+            properties.setProperty(name, value);
+            properties.save(new FileOutputStream(file), "сохранение данных");
+        }catch (Exception e){
+            throw new CronPropertiesException("Не удалось сохранить файл для учета данных крона");
+        }
+    }
+
+    public String get(String name) throws CronPropertiesException {
+        try {
+            Properties properties  = propertiesfn(null);
             return properties.getProperty(name);
         }catch (Exception e){
-            throw new CronPropertiesException("Не удалось найти файл для учета данных крона");
+            throw new CronPropertiesException("Не удалось получить данные для учета данных крона");
         }
 
     }

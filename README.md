@@ -1,10 +1,14 @@
+#java8
 #jaspersoft studio 6.19.1
 #HELP generate exist table classes in db and repository 
 for use run `mvn jpa-entity-generator:generateAll`
 
 https://github.com/smartnews/jpa-entity-generator
 
-next use `mvn spring-data-generator:repositories`
+
+####Внимание!
+эта часть вызывается только когда необходимо т.к. для ее работы билд должен выполняться, а в случае когда у вас есть ссылка на эти сгенерированные файлы то билд не выполнится (единственный вариант это убрал некомпилируемые файлы)
+ use `mvn spring-data-generator:repositories`
 
 https://github.com/cmeza20/spring-data-generator
 

@@ -9,11 +9,15 @@ import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Profile;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.scheduling.annotation.EnableScheduling;
+
 
 @SpringBootApplication
 @Log4j2
 @EnableScheduling
+@Profile({"test", "test-pg"})
 public class Application {
     public static void main(String[] args) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         SpringApplication.run(Application.class, args);
