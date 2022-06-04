@@ -33,7 +33,6 @@ public class CronProperties {
         }
         if (file == null) {file =  new File(propertyFolder+"/cronproperties-" + profile);};
         if(!file.exists()){
-            log.info(2);
             try {
                 file.createNewFile();
             }catch (Exception e){
