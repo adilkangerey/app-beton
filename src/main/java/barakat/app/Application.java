@@ -9,10 +9,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @SpringBootApplication
@@ -29,6 +35,41 @@ public class Application implements WebMvcConfigurer {
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
+
+    /**
+     * Configure the {@link HttpMessageConverter HttpMessageConverter}s for
+     * reading from the request body and for writing to the response body.
+     * <p>By default, all built-in converters are configured as long as the
+     * corresponding 3rd party libraries such Jackson JSON, JAXB2, and others
+     * are present on the classpath.
+     * <p><strong>Note</strong> use of this method turns off default converter
+     * registration. Alternatively, use
+     * {@link #extendMessageConverters(List)} to modify that default
+     * list of converters.
+     *
+     * @param converters initially an empty list of converters
+     */
+//    @Override
+//    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+//        converters.add(byteArrayHttpMessageConverter());
+//    }
+//
+//    @Bean
+//    public ByteArrayHttpMessageConverter byteArrayHttpMessageConverter() {
+//        ByteArrayHttpMessageConverter arrayHttpMessageConverter = new ByteArrayHttpMessageConverter();
+//        arrayHttpMessageConverter.setSupportedMediaTypes(getSupportedMediaTypes());
+//        return arrayHttpMessageConverter;
+//    }
+
+    private List<MediaType> getSupportedMediaTypes() {
+        List<MediaType> list = new ArrayList<MediaType>();
+        list.add(MediaType.IMAGE_JPEG);
+        list.add(MediaType.IMAGE_PNG);
+//        list.add(MediaType.APPLICATION_OCTET_STREAM);
+        list.add(MediaType.APPLICATION_PDF);
+        return list;
+    }
+
     public static void main(String[] args)  {
         SpringApplication.run(Application.class, args);
 

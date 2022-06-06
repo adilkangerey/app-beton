@@ -32,6 +32,7 @@ FROM wcargo cargo
 	 unit."wMainLink" = main."ID" 
 	left join bkproducts product ON 
 	 cargo."ProductLink" = product."ID" 
+	 where main."W1At" >  $P{start}  and  main."W1At" < $P{end}
 ORDER BY customer."Name" DESC]]>
 	</queryString>
 	<field name="date" class="java.sql.Timestamp">
@@ -54,7 +55,6 @@ ORDER BY customer."Name" DESC]]>
 		<property name="com.jaspersoft.studio.field.label" value="brutto"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="wmain"/>
 	</field>
-	<filterExpression><![CDATA[$F{date}.after( $P{start} )]]></filterExpression>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -107,19 +107,19 @@ ORDER BY customer."Name" DESC]]>
 				<text><![CDATA[date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="138" y="0" width="138" height="15" forecolor="#736343" uuid="d960ed64-58c8-4432-b65c-c1d864459ba8">
+				<reportElement style="Column header" x="138" y="0" width="174" height="15" forecolor="#736343" uuid="d960ed64-58c8-4432-b65c-c1d864459ba8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="72cdcf4f-d44a-4210-94a2-72da6d926574"/>
 				</reportElement>
 				<text><![CDATA[customer]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="276" y="0" width="138" height="15" forecolor="#736343" uuid="11fd24bd-2eb3-4ea5-aaa9-1949408f2ec1">
+				<reportElement style="Column header" x="312" y="0" width="138" height="15" forecolor="#736343" uuid="11fd24bd-2eb3-4ea5-aaa9-1949408f2ec1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="63ab232e-034c-44c3-bd7c-6e9369e709f3"/>
 				</reportElement>
 				<text><![CDATA[product]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="414" y="0" width="138" height="15" forecolor="#736343" uuid="0743de8b-d40f-4757-819f-92e7c0f48087">
+				<reportElement style="Column header" x="450" y="0" width="104" height="15" forecolor="#736343" uuid="0743de8b-d40f-4757-819f-92e7c0f48087">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="41f8e037-3dce-4951-9f8e-b1e24339018a"/>
 				</reportElement>
 				<text><![CDATA[brutto]]></text>
@@ -137,7 +137,7 @@ ORDER BY customer."Name" DESC]]>
 					<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement style="Detail" mode="Transparent" x="138" y="0" width="138" height="15" forecolor="#000000" backcolor="#030303" uuid="62ea44a3-62a3-4e2d-824d-5a382cde8928">
+					<reportElement style="Detail" mode="Transparent" x="138" y="0" width="174" height="15" forecolor="#000000" backcolor="#030303" uuid="62ea44a3-62a3-4e2d-824d-5a382cde8928">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="72cdcf4f-d44a-4210-94a2-72da6d926574"/>
 						<property name="net.sf.jasperreports.style.pdfEncoding" value="utf-8"/>
 					</reportElement>
@@ -147,7 +147,7 @@ ORDER BY customer."Name" DESC]]>
 					<textFieldExpression><![CDATA[$F{customer}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement style="Detail" x="276" y="0" width="138" height="15" backcolor="#030303" uuid="8b071753-9b8a-4c6f-8a8e-6395ab54a7b7">
+					<reportElement style="Detail" x="312" y="0" width="138" height="15" backcolor="#030303" uuid="8b071753-9b8a-4c6f-8a8e-6395ab54a7b7">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="63ab232e-034c-44c3-bd7c-6e9369e709f3"/>
 					</reportElement>
 					<textElement>
@@ -156,7 +156,7 @@ ORDER BY customer."Name" DESC]]>
 					<textFieldExpression><![CDATA[$F{product}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement style="Detail" x="414" y="0" width="138" height="15" uuid="2413af99-806f-47eb-b643-4341d42f6b31">
+					<reportElement style="Detail" x="450" y="0" width="104" height="15" uuid="2413af99-806f-47eb-b643-4341d42f6b31">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="41f8e037-3dce-4951-9f8e-b1e24339018a"/>
 					</reportElement>
 					<textFieldExpression><![CDATA[$F{brutto}]]></textFieldExpression>

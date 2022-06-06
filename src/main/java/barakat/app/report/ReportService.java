@@ -1,9 +1,8 @@
 package barakat.app.report;
 
-import com.google.gson.Gson;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.apache.commons.io.IOUtils;
 
@@ -37,13 +36,14 @@ public class ReportService {
      * @throws JasperException
      * @throws IOException
      */
-    @PostMapping(value = "/{name}", produces = MediaType.APPLICATION_PDF_VALUE)
-    private @ResponseBody byte[] getReport(@PathVariable String name, @RequestBody List<ReportParameter> parameters, HttpServletResponse response) throws JasperException, IOException {
+    @CrossOrigin
+    @PostMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    private @ResponseBody
+    String getReport(@PathVariable String name, @RequestBody List<ReportParameter> parameters, HttpServletResponse response) throws JasperException, IOException {
         Map<String, Object> parameters2 = new HashMap<>();
         for (ReportParameter parameter: parameters) {
             if(parameter.javaType == null || parameter.value == null || parameter.name == null){
                 response.sendError(400, "parameter javaType|value|name is null");
-                return null;
             }else{
                 switch (parameter.javaType){
                     case "java.sql.Timestamp": parameters2.put(parameter.name, Timestamp.valueOf(LocalDateTime.parse((String) parameter.value)));break;
@@ -52,21 +52,27 @@ public class ReportService {
             }
         }
         parameters2.put("projectPath", report.filesPath);
-        response.setHeader("Content-disposition", "=attachment; filename="+name + ".pdf");
-        FileInputStream f = new FileInputStream(report.generatePdfReport(name, parameters2));
-        return IOUtils.toByteArray(f);
+        response.setHeader("Content-disposition", "=attachment; filename=\""+name + ".pdf\"");
+        response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+        return "\""+ report.generatePdfReport(name, parameters2) + "\"";
     }
 
+
+    @CrossOrigin
+    @GetMapping(value = "/download/{fileName}", produces = MediaType.APPLICATION_PDF_VALUE)
+    private void downloadReport(@PathVariable String fileName, HttpServletResponse response) throws IOException {
+        FileInputStream f = new FileInputStream(report.outputFolder+"/"+fileName);
+        IOUtils.copy(f, response.getOutputStream());
+    }
+    @CrossOrigin
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    private @ResponseBody String getAllReport(){
+    private @ResponseBody List<Object> getAllReport(){
         List<Object> list = new ArrayList<>();
-        list.add(new ReportJasper("report1").parameter("start", "java.sql.Timestamp", "Дата и время", "2022-04-02T10:10"));
-//        List<Map<String, Object>> list2 = new ArrayList();
-//        for(ReportJasper jp : list){
-//            list2.add(new HashMap<String, Object>().)
-//        }
-//        list
-        return new Gson().toJson(list);
-//        return list;
+        list.add(new ReportJasper("report1", "Отчет Баракат")
+                .parameter("start", "java.sql.Timestamp", "Дата начала", "2022-04-02T10:10")
+                .parameter("end", "java.sql.Timestamp", "Дата окончания", "2022-04-10T10:10")
+
+        );
+        return list;
     }
 }

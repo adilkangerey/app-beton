@@ -45,7 +45,7 @@ public class Report {
         return "ddd";
     }
 
-    public File generatePdfReport(String reportName, Map<String, Object> parameters) throws JasperException {
+    public String generatePdfReport(String reportName, Map<String, Object> parameters) throws JasperException {
         try {
             JasperReport jasperReport = JasperCompileManager
                     .compileReport(path +"/" + reportName + ".jrxml");
@@ -60,14 +60,15 @@ public class Report {
             // ExporterInput
             exporter.setExporterInput(exporterInput);
             // ExporterOutput
-            File outputFile = new File(outputFolder + "/" + reportName + UUID.randomUUID().toString() + ".pdf");
+            String outputFileName = reportName + UUID.randomUUID().toString() + ".pdf";
+            File outputFile = new File(outputFolder + "/" + outputFileName);
             OutputStreamExporterOutput exporterOutput = new SimpleOutputStreamExporterOutput(outputFile);
             // Output
             exporter.setExporterOutput(exporterOutput);
             SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
             exporter.setConfiguration(configuration);
             exporter.exportReport();
-            return outputFile;
+            return outputFileName;
         }catch (Exception e){
             throw new JasperException("Не могу найти отчет или проблемы с отчетом",e);
         }

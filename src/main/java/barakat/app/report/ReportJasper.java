@@ -9,10 +9,12 @@ import java.util.List;
 @Data
 public class ReportJasper {
     String jasperFileName;
+    String description;
     List<ReportParameter> parameters;
 
-    public ReportJasper(String jasperFileName) {
+    public ReportJasper(String jasperFileName, String description) {
         this.jasperFileName = jasperFileName;
+        this.description = description;
         parameters = new ArrayList<>();
     }
 
