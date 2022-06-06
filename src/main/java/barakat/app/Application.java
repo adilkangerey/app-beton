@@ -1,16 +1,14 @@
-package barakat.app.aggregator;
+package barakat.app;
 
 import barakat.app.aggregator.entity.tctransport.repository.WmainCustomRepository;
+import barakat.app.report.JasperException;
+import barakat.app.report.Report;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.batch.core.JobParametersInvalidException;
-import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
-import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
-import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 
@@ -19,7 +17,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @Profile({"test", "test-pg"})
 public class Application {
-    public static void main(String[] args) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
+    public static void main(String[] args)  {
         SpringApplication.run(Application.class, args);
         System.out.println("Hello");
 
@@ -42,6 +40,12 @@ public class Application {
     private WmainCustomRepository wmainRepository;
 
 
+    @Bean
+    public String main(Report report) throws JasperException {
+        log.info("startttttt main");
+        report.demo2();
+        return null;
+    }
 
 
 
