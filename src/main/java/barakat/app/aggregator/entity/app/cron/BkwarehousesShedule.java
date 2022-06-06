@@ -24,7 +24,6 @@ public class BkwarehousesShedule implements TcTransportCopySchedule {
 
     @Scheduled(fixedDelay = 1000*60*30)
     private void job(){
-
         tcRepository.saveAll(repository.findAll());
     }
     @Override

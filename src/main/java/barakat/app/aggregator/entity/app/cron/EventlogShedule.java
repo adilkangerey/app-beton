@@ -10,9 +10,18 @@ import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -29,17 +38,19 @@ public class EventlogShedule implements TcTransportCopySchedule {
     EventlogTcRepository tcRepository;
     @Autowired
     CronProperties cron;
+    @Value("${tctransport.sync.entity.large}")
+    Integer size;
 
     private String lastEventId = "eventlog.id.last";
+
 
     @Scheduled(fixedDelay = 1000*5)
     private void job() throws CronPropertiesException {
         String id = cron.get(lastEventId);
-        Integer count =  isMuchMore()? 40000:1000;
         if (id == null){
             cron.save(lastEventId, "0");
         }else{
-            List<Eventlog>  eventlogs = repository.queryById(Integer.valueOf(id), count);
+            List<Eventlog>  eventlogs = repository.queryById(Integer.valueOf(id), size);
             tcRepository.saveAll(eventlogs);
             if(eventlogs.size() != 0){
                 cron.save(lastEventId, eventlogs.get(eventlogs.size()-1).getId().toString());

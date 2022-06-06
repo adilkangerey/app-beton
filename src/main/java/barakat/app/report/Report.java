@@ -6,22 +6,15 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.fonts.SimpleFontExtensionsRegistryFactory;
-import net.sf.jasperreports.engine.xml.JRFontFactory;
 import net.sf.jasperreports.export.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.repository.support.Repositories;
 
 import javax.sql.DataSource;
 import java.io.File;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -30,10 +23,11 @@ import java.util.UUID;
 @Configuration
 public class Report {
 
-
-
     @Value("${report.path}")
     String path;
+
+    @Value("${report.filesPath}")
+    String filesPath;
 
     @Value("${report.outputFolder}")
     String outputFolder;
@@ -51,7 +45,7 @@ public class Report {
         return "ddd";
     }
 
-    public void generatePdfReport(String reportName, Map<String, Object> parameters) throws JasperException {
+    public File generatePdfReport(String reportName, Map<String, Object> parameters) throws JasperException {
         try {
             JasperReport jasperReport = JasperCompileManager
                     .compileReport(path +"/" + reportName + ".jrxml");
@@ -61,19 +55,19 @@ public class Report {
             File outDir = new File(outputFolder);
             outDir.mkdirs();
             // PDF Exportor.
-
             JRPdfExporter exporter = new JRPdfExporter();
             ExporterInput exporterInput = new SimpleExporterInput(jasperPrint);
             // ExporterInput
             exporter.setExporterInput(exporterInput);
             // ExporterOutput
-            OutputStreamExporterOutput exporterOutput = new SimpleOutputStreamExporterOutput(
-                    outputFolder + "/" + reportName + UUID.randomUUID().toString() + ".pdf");
+            File outputFile = new File(outputFolder + "/" + reportName + UUID.randomUUID().toString() + ".pdf");
+            OutputStreamExporterOutput exporterOutput = new SimpleOutputStreamExporterOutput(outputFile);
             // Output
             exporter.setExporterOutput(exporterOutput);
             SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
             exporter.setConfiguration(configuration);
             exporter.exportReport();
+            return outputFile;
         }catch (Exception e){
             throw new JasperException("Не могу найти отчет или проблемы с отчетом",e);
         }

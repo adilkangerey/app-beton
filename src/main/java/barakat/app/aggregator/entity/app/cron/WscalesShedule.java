@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -29,15 +30,16 @@ public class WscalesShedule implements TcTransportCopySchedule {
     @Autowired
     CronProperties cron;
     private String lastWscalesId = "wscales.id.last";
+    @Value("${tctransport.sync.entity.large}")
+    Integer size;
 
     @Scheduled(fixedDelay = 1000*10)
     private void job() throws CronPropertiesException {
         String id = cron.get(lastWscalesId);
-        Integer count =  isMuchMore()? 30000:1000;
         if (id == null){
             cron.save(lastWscalesId, "0");
         }else{
-            List<Wscales> eventlogs = repository.queryById(Integer.valueOf(id), count);
+            List<Wscales> eventlogs = repository.queryById(Integer.valueOf(id), size);
             tcRepository.saveAll(eventlogs);
             if(eventlogs.size() != 0){
                 cron.save(lastWscalesId, eventlogs.get(eventlogs.size()-1).getId().toString());

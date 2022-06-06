@@ -17,4 +17,5 @@ public interface EventlogCustomRepository extends JpaRepository<Eventlog, Intege
 
     @Query(value = "select e from barakat.app.aggregator.entity.tctransport.model.gen.Eventlog e where e.id >= :id and e.id < (:id+:count)")
     List<Eventlog> queryById(Integer id, Integer count);
+
 }

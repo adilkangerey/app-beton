@@ -10,16 +10,30 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @SpringBootApplication
 @Log4j2
 @EnableScheduling
+@EnableWebMvc
 @Profile({"test", "test-pg", "test-hamachi"})
-public class Application {
+public class Application implements WebMvcConfigurer {
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
     public static void main(String[] args)  {
         SpringApplication.run(Application.class, args);
-        System.out.println("Hello");
+
+
+//        System.out.println("Hello");
 
 //        ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
 //
@@ -40,7 +54,7 @@ public class Application {
     private WmainCustomRepository wmainRepository;
 
 
-    @Bean
+
     public String main(Report report) throws JasperException {
         log.info("startttttt main");
         report.demo2();
