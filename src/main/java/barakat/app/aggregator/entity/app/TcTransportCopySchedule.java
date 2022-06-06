@@ -36,12 +36,13 @@ public interface TcTransportCopySchedule {
     }
 
     default Boolean isMuchMore(){
-        long count  =getRepository().count() ;
-        if(count == 0l){
-            return false;
-        }else{
-            long difcount  = count - getTcRepository().count();
-            return difcount > 3000;
-        }
+        return true;
+//        long count  = getRepository().count() ;
+//        if(count == 0l){
+//            return false;
+//        }else{
+//            long difcount  = count - getTcRepository().count();
+//            return difcount > 3000;
+//        }
     }
 }
