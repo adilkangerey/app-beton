@@ -3,6 +3,7 @@ package barakat.app.aggregator.entity.app.cron;
 import barakat.app.aggregator.entity.app.CronProperties;
 import barakat.app.aggregator.entity.app.CronPropertiesException;
 import barakat.app.aggregator.entity.app.TcTransportCopySchedule;
+import barakat.app.aggregator.entity.app.TcTransportUpdateSchedule;
 import barakat.app.aggregator.entity.app.repository.mirrorgen.WunitsTcRepository;
 import barakat.app.aggregator.entity.tctransport.model.gen.Wunits;
 import barakat.app.aggregator.entity.tctransport.repository.WunitsCustomRepository;
@@ -22,7 +23,7 @@ import java.util.List;
 @Log4j2
 @Getter
 @Configuration
-public class WunitsShedule implements TcTransportCopySchedule {
+public class WunitsShedule implements TcTransportCopySchedule, TcTransportUpdateSchedule {
     @Autowired
     WunitsCustomRepository repository;
     @Autowired
@@ -34,7 +35,7 @@ public class WunitsShedule implements TcTransportCopySchedule {
     Integer size;
 
     @Scheduled(fixedDelay = 1000*10)
-    private void job() throws CronPropertiesException {
+    public void job() throws CronPropertiesException {
         String id = cron.get(lastWunitsId);
         if (id == null){
             cron.save(lastWunitsId, "0");
@@ -49,5 +50,18 @@ public class WunitsShedule implements TcTransportCopySchedule {
     @Override
     public Logger getLogger() {
         return log;
+    }
+
+    @Scheduled(fixedDelay = 1000*10)
+    public void update() throws CronPropertiesException {
+        Integer usize = 500;
+        String id = cron.get(lastWunitsId);
+
+        if (id != null){
+            Integer id_ = Integer.parseInt(id);
+            id_ -= usize; if(id_ < 0) id_ = 0;
+            List<Wunits> wunits = repository.queryById(id_, usize);
+            tcRepository.saveAll(wunits);
+        }
     }
 }

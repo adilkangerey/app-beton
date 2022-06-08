@@ -22,11 +22,6 @@ public class RegweightsShedule implements TcTransportCopySchedule {
     @Autowired
     RegweightsTcRepository tcRepository;
 
-    @Scheduled(fixedDelay = 1000*60*30)
-    private void job(){
-
-        tcRepository.saveAll(repository.findAll());
-    }
     @Override
     public Logger getLogger() {
         return log;

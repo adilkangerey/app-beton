@@ -22,11 +22,6 @@ public class QUsersShedule implements TcTransportCopySchedule {
     @Autowired
     QUsersTcRepository tcRepository;
 
-    @Scheduled(fixedDelay = 1000*60*30)
-    private void job(){
-
-        tcRepository.saveAll(repository.findAll());
-    }
     @Override
     public Logger getLogger() {
         return log;

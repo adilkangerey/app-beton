@@ -22,10 +22,6 @@ public class TRepsNumShedule implements TcTransportCopySchedule {
     @Autowired
     TRepsNumTcRepository tcRepository;
 
-    @Scheduled(fixedDelay = 1000*60*30)
-    private void job(){
-        tcRepository.saveAll(repository.findAll());
-    }
     @Override
     public Logger getLogger() {
         return log;

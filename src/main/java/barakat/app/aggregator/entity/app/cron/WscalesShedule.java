@@ -34,7 +34,7 @@ public class WscalesShedule implements TcTransportCopySchedule {
     Integer size;
 
     @Scheduled(fixedDelay = 1000*10)
-    private void job() throws CronPropertiesException {
+    public void job() throws CronPropertiesException {
         String id = cron.get(lastWscalesId);
         if (id == null){
             cron.save(lastWscalesId, "0");
