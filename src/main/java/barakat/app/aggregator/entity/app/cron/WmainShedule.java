@@ -3,8 +3,10 @@ package barakat.app.aggregator.entity.app.cron;
 import barakat.app.aggregator.entity.app.CronProperties;
 import barakat.app.aggregator.entity.app.CronPropertiesException;
 import barakat.app.aggregator.entity.app.TcTransportCopySchedule;
+import barakat.app.aggregator.entity.app.TcTransportUpdateSchedule;
 import barakat.app.aggregator.entity.app.repository.mirrorgen.WmainTcRepository;
 import barakat.app.aggregator.entity.tctransport.model.gen.Wmain;
+import barakat.app.aggregator.entity.tctransport.model.gen.Wunits;
 import barakat.app.aggregator.entity.tctransport.repository.WmainCustomRepository;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
@@ -22,7 +24,7 @@ import java.util.List;
 @Log4j2
 @Getter
 @Configuration
-public class WmainShedule implements TcTransportCopySchedule {
+public class WmainShedule implements TcTransportCopySchedule, TcTransportUpdateSchedule {
     @Autowired
     WmainCustomRepository repository;
     @Autowired
@@ -33,7 +35,7 @@ public class WmainShedule implements TcTransportCopySchedule {
     @Value("${tctransport.sync.entity.large}")
     Integer size;
     @Scheduled(fixedDelay = 1000*10)
-    private void job() throws CronPropertiesException {
+    public void job() throws CronPropertiesException {
 
         String id = cron.get(lastQWrecsId);
         if (id == null){
@@ -46,6 +48,20 @@ public class WmainShedule implements TcTransportCopySchedule {
             }
         }
     }
+
+    @Scheduled(fixedDelay = 1000*10)
+    public void update() throws CronPropertiesException {
+        Integer usize = 500;
+        String id = cron.get(lastQWrecsId);
+
+        if (id != null){
+            Integer id_ = Integer.parseInt(id);
+            id_ -= usize; if(id_ < 0) id_ = 0;
+            List<Wmain> wunits = repository.queryById(id_, usize);
+            tcRepository.saveAll(wunits);
+        }
+    }
+
     @Override
     public Logger getLogger() {
         return log;

@@ -23,7 +23,7 @@ public class BkcustomersShedule implements TcTransportCopySchedule {
     BkcustomersTcRepository tcRepository;
 
     @Scheduled(fixedDelay = 1000*60*5)
-    private void job(){
+    public void job(){
         tcRepository.saveAll(repository.findAll());
     }
     @Override

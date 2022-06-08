@@ -22,12 +22,6 @@ public class BkcategoriesShedule implements TcTransportCopySchedule {
     @Autowired
     BkcategoriesTcRepository tcRepository;
 
-    @Scheduled(fixedDelay = 1000*60*30)
-    private void job(){
-        tcRepository.saveAll(repository.findAll());
-    }
-
-
     @Override
     public Logger getLogger() {
         return log;

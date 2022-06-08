@@ -45,7 +45,7 @@ public class EventlogShedule implements TcTransportCopySchedule {
 
 
     @Scheduled(fixedDelay = 1000*5)
-    private void job() throws CronPropertiesException {
+    public void job() throws CronPropertiesException {
         String id = cron.get(lastEventId);
         if (id == null){
             cron.save(lastEventId, "0");

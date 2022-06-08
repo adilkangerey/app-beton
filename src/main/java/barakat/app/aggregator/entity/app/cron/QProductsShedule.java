@@ -34,7 +34,7 @@ public class QProductsShedule implements TcTransportCopySchedule {
     Integer size;
 
     @Scheduled(fixedDelay = 1000*5)
-    private void job() throws CronPropertiesException {
+    public void job() throws CronPropertiesException {
         String id = cron.get(lastQProductsId);
         if (id == null){
             cron.save(lastQProductsId, "0");

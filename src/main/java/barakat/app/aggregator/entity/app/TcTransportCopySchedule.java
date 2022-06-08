@@ -12,6 +12,9 @@ public interface TcTransportCopySchedule {
     CrudRepository getRepository();
     CrudRepository getTcRepository();
 
+    @Scheduled(fixedDelay = 1000*60*30)
+    default void job() throws CronPropertiesException {getTcRepository().saveAll(getRepository().findAll());}
+
     @Scheduled(fixedDelay = 1000*60*1)
     default void count(){
         if(getRepository() == null){

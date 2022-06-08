@@ -22,11 +22,6 @@ public class PinweightsShedule implements TcTransportCopySchedule {
     @Autowired
     PinweightsTcRepository tcRepository;
 
-    @Scheduled(fixedDelay = 1000*60*30)
-    private void job(){
-
-        tcRepository.saveAll(repository.findAll());
-    }
     @Override
     public Logger getLogger() {
         return log;

@@ -3,14 +3,17 @@ package barakat.app.aggregator.entity.app.cron;
 import barakat.app.aggregator.entity.app.CronProperties;
 import barakat.app.aggregator.entity.app.CronPropertiesException;
 import barakat.app.aggregator.entity.app.TcTransportCopySchedule;
+import barakat.app.aggregator.entity.app.TcTransportUpdateSchedule;
 import barakat.app.aggregator.entity.app.repository.mirrorgen.WcargoTcRepository;
 import barakat.app.aggregator.entity.tctransport.model.gen.Wcargo;
+import barakat.app.aggregator.entity.tctransport.model.gen.Wmain;
 import barakat.app.aggregator.entity.tctransport.repository.WcargoCustomRepository;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -22,7 +25,7 @@ import java.util.List;
 @Log4j2
 @Getter
 @Configuration
-public class WcargoShedule implements TcTransportCopySchedule {
+public class WcargoShedule implements TcTransportCopySchedule, TcTransportUpdateSchedule {
     @Autowired
     WcargoCustomRepository repository;
     @Autowired
@@ -34,7 +37,7 @@ public class WcargoShedule implements TcTransportCopySchedule {
     Integer size;
 
     @Scheduled(fixedDelay = 1000*10)
-    private void job() throws CronPropertiesException {
+    public void job() throws CronPropertiesException {
         String id = cron.get(lastWcargoId);
         if (id == null){
             cron.save(lastWcargoId, "0");
@@ -46,6 +49,20 @@ public class WcargoShedule implements TcTransportCopySchedule {
             }
         }
     }
+
+    @Scheduled(fixedDelay = 1000*10)
+    public void update() throws CronPropertiesException {
+        Integer usize = 500;
+        String id = cron.get(lastWcargoId);
+
+        if (id != null){
+            Integer id_ = Integer.parseInt(id);
+            id_ -= usize; if(id_ < 0) id_ = 0;
+            List<Wcargo> wunits = repository.queryById(id_, usize);
+            tcRepository.saveAll(wunits);
+        }
+    }
+
     @Override
     public Logger getLogger() {
         return log;
