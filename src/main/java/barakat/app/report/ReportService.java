@@ -2,6 +2,7 @@ package barakat.app.report;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.convert.Jsr310Converters;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.apache.commons.io.IOUtils;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Log4j2
@@ -46,7 +49,9 @@ public class ReportService {
                 response.sendError(400, "parameter javaType|value|name is null");
             }else{
                 switch (parameter.javaType){
-                    case "java.sql.Timestamp": parameters2.put(parameter.name, Timestamp.valueOf(LocalDateTime.parse((String) parameter.value)));break;
+                    case "java.sql.Timestamp":
+                        parameters2.put(parameter.name,  Timestamp.valueOf(LocalDateTime.parse((String) parameter.value)));
+                        break;
                     default: parameters2.put(parameter.name, parameter.value);break;
                 }
             }
@@ -66,12 +71,12 @@ public class ReportService {
     }
     @CrossOrigin
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    private @ResponseBody List<Object> getAllReport(){
-        List<Object> list = new ArrayList<>();
-        list.add(new ReportJasper("report1", "Отчет Баракат")
+    private @ResponseBody List<ReportJasper> getAllReport(){
+        List<ReportJasper> list = new ArrayList<>();
+        list.add(new ReportJasper("barakatdetail", "Отчет Баракат Детально")
                 .parameter("start", "java.sql.Timestamp", "Дата начала", "2022-04-02T10:10")
                 .parameter("end", "java.sql.Timestamp", "Дата окончания", "2022-04-10T10:10")
-
+//                .parameter("customfilter", "java.lang.String", "фильтр", "and customer.\"Name\" in ('') and wareh.\"Name\" in ('')")
         );
         return list;
     }

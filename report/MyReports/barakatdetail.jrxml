@@ -27,6 +27,7 @@
 	<parameter name="projectPath" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
+	<parameter name="customfilter" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT
 --        main."State" ,
@@ -67,7 +68,12 @@ FROM wcargo cargo
         left join bkusers user_ on user_."ID" = main."User1Link"
         left join bkwarehouses wareh on wareh."ID" = cargo."WarehouseOutLink"
 
-where main."W1At" >  $P{start}  and  main."W1At" < $P{end} and main."W2At" is not null
+where 
+main."W1At" >  $P{start}  
+and  main."W1At" < $P{end} 
+and main."W2At" is not null 
+
+$P!{customfilter}
 --group by customer."Name", product."Name"
 -- and customer."Name" in ('')
 -- and main.ID = 82631
@@ -117,7 +123,7 @@ ORDER BY customer."Name" DESC]]>
 		<property name="com.jaspersoft.studio.field.label" value="BRUTTO"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="WMAIN"/>
 	</field>
-	<field name="KUB" class="java.math.BigDecimal">
+	<field name="KUB" class="java.lang.Float">
 		<property name="com.jaspersoft.studio.field.name" value="KUB"/>
 		<property name="com.jaspersoft.studio.field.label" value="KUB"/>
 	</field>
@@ -156,9 +162,9 @@ ORDER BY customer."Name" DESC]]>
 			<textField>
 				<reportElement x="0" y="10" width="810" height="46" uuid="b5cf17d4-58a2-4933-91f8-c26f314e2a08"/>
 				<textElement textAlignment="Center">
-					<font size="16"/>
+					<font fontName="Roboto" size="16"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Отгрузка бетона ТОО BARAKAT INVEST c " + DATEFORMAT($P{start},"dd.MM.yyyy HH:mm") + " по " + DATEFORMAT($P{end},"dd.MM.yyyy HH:mm") + ", фильтр по клиентам, складам"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Отгрузка бетона ТОО BARAKAT INVEST c " +  $P{start}.toLocalDateTime().format(java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")) + " по " + $P{end}.toLocalDateTime().format(java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")) + ", фильтр по клиентам, складам"]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -178,7 +184,7 @@ ORDER BY customer."Name" DESC]]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b27dfe09-c805-424b-989d-ce7cd1eb75f0"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+					<font fontName="Roboto" size="9" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Контрагент]]></text>
 			</staticText>
@@ -187,7 +193,7 @@ ORDER BY customer."Name" DESC]]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d4646475-85a7-40ac-bc2d-4f14e0e786d8"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+					<font fontName="Roboto" size="9" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Груз]]></text>
 			</staticText>
@@ -196,7 +202,7 @@ ORDER BY customer."Name" DESC]]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a34fc005-398a-4a52-bb1f-3dac3f1359c1"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+					<font fontName="Roboto" size="9" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Дата заезда/выезд]]></text>
 			</staticText>
@@ -205,7 +211,7 @@ ORDER BY customer."Name" DESC]]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3700a62a-1598-4f16-9a59-1e0efa5990e8"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+					<font fontName="Roboto" size="9" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Номер маш]]></text>
 			</staticText>
@@ -214,7 +220,7 @@ ORDER BY customer."Name" DESC]]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f3e82ecb-7fb1-4f5b-b542-36ed15db3952"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+					<font fontName="Roboto" size="9" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Объем]]></text>
 			</staticText>
@@ -223,7 +229,7 @@ ORDER BY customer."Name" DESC]]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c31163d4-cc16-49e2-a7a4-82732aa7f98b"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+					<font fontName="Roboto" size="9" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Перевозчик]]></text>
 			</staticText>
@@ -232,7 +238,7 @@ ORDER BY customer."Name" DESC]]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4dae786b-d80b-43bc-a595-a030fd2d7cfe"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+					<font fontName="Roboto" size="9" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Нетто]]></text>
 			</staticText>
@@ -241,7 +247,7 @@ ORDER BY customer."Name" DESC]]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6dd21390-0deb-416d-bbef-dd9ac4067166"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+					<font fontName="Roboto" size="9" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Брутто]]></text>
 			</staticText>
@@ -250,7 +256,7 @@ ORDER BY customer."Name" DESC]]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="93dec438-10b8-4096-bd67-ab5b7611e311"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+					<font fontName="Roboto" size="9" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Плотн, кг/м3]]></text>
 			</staticText>
@@ -259,7 +265,7 @@ ORDER BY customer."Name" DESC]]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e5fde4fe-582f-4e00-adff-e32f0f383409"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+					<font fontName="Roboto" size="9" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Тара]]></text>
 			</staticText>
@@ -268,18 +274,18 @@ ORDER BY customer."Name" DESC]]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0da0ed5f-ba07-4089-955a-663dfd902205"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+					<font fontName="Roboto" size="9" isBold="false"/>
 				</textElement>
-				<text><![CDATA[OPERATOR]]></text>
+				<text><![CDATA[Оператор]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="716" y="0" width="92" height="16" uuid="29607704-f5dd-445e-b859-042975840e87">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d7eb0249-0063-4ee7-8bf3-e7078e863752"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+					<font fontName="Roboto" size="9" isBold="false"/>
 				</textElement>
-				<text><![CDATA[WAREHOUSE]]></text>
+				<text><![CDATA[Пункт назначения]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -292,7 +298,7 @@ ORDER BY customer."Name" DESC]]>
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b27dfe09-c805-424b-989d-ce7cd1eb75f0"/>
 					</reportElement>
 					<textElement>
-						<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+						<font fontName="Roboto" size="9" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{CUSTOMER}]]></textFieldExpression>
 				</textField>
@@ -301,7 +307,7 @@ ORDER BY customer."Name" DESC]]>
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d4646475-85a7-40ac-bc2d-4f14e0e786d8"/>
 					</reportElement>
 					<textElement>
-						<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+						<font fontName="Roboto" size="9" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{PRODUCT}]]></textFieldExpression>
 				</textField>
@@ -310,16 +316,16 @@ ORDER BY customer."Name" DESC]]>
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a34fc005-398a-4a52-bb1f-3dac3f1359c1"/>
 					</reportElement>
 					<textElement>
-						<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+						<font fontName="Roboto" size="9" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[DATEFORMAT($F{START_}, "dd.MM.yyyy HH:mm" ) + "\n" + DATEFORMAT($F{END_}, "dd.MM.yyyy HH:mm" )]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{START_}.toLocalDateTime().format(java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")) + "\n" + $F{END_}.toLocalDateTime().format(java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")) ]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="170" y="0" width="60" height="30" uuid="f455a365-23e3-4c98-be09-7dbbf2bca03d">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3700a62a-1598-4f16-9a59-1e0efa5990e8"/>
 					</reportElement>
 					<textElement>
-						<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+						<font fontName="Roboto" size="9" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{TRANSPNO_HASH}]]></textFieldExpression>
 				</textField>
@@ -328,7 +334,7 @@ ORDER BY customer."Name" DESC]]>
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f3e82ecb-7fb1-4f5b-b542-36ed15db3952"/>
 					</reportElement>
 					<textElement>
-						<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+						<font fontName="Roboto" size="9" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{OBIEM}]]></textFieldExpression>
 				</textField>
@@ -337,7 +343,7 @@ ORDER BY customer."Name" DESC]]>
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c31163d4-cc16-49e2-a7a4-82732aa7f98b"/>
 					</reportElement>
 					<textElement>
-						<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+						<font fontName="Roboto" size="9" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{TRANSPCUSTOMER}]]></textFieldExpression>
 				</textField>
@@ -346,7 +352,7 @@ ORDER BY customer."Name" DESC]]>
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4dae786b-d80b-43bc-a595-a030fd2d7cfe"/>
 					</reportElement>
 					<textElement>
-						<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+						<font fontName="Roboto" size="9" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{NETTO}]]></textFieldExpression>
 				</textField>
@@ -355,7 +361,7 @@ ORDER BY customer."Name" DESC]]>
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6dd21390-0deb-416d-bbef-dd9ac4067166"/>
 					</reportElement>
 					<textElement>
-						<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+						<font fontName="Roboto" size="9" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{BRUTTO}]]></textFieldExpression>
 				</textField>
@@ -364,7 +370,7 @@ ORDER BY customer."Name" DESC]]>
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="93dec438-10b8-4096-bd67-ab5b7611e311"/>
 					</reportElement>
 					<textElement>
-						<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+						<font fontName="Roboto" size="9" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{KUB}]]></textFieldExpression>
 				</textField>
@@ -373,7 +379,7 @@ ORDER BY customer."Name" DESC]]>
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e5fde4fe-582f-4e00-adff-e32f0f383409"/>
 					</reportElement>
 					<textElement>
-						<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+						<font fontName="Roboto" size="9" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{TARE}]]></textFieldExpression>
 				</textField>
@@ -382,7 +388,7 @@ ORDER BY customer."Name" DESC]]>
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0da0ed5f-ba07-4089-955a-663dfd902205"/>
 					</reportElement>
 					<textElement>
-						<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+						<font fontName="Roboto" size="9" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{OPERATOR}]]></textFieldExpression>
 				</textField>
@@ -391,7 +397,7 @@ ORDER BY customer."Name" DESC]]>
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d7eb0249-0063-4ee7-8bf3-e7078e863752"/>
 					</reportElement>
 					<textElement>
-						<font fontName="Roboto&#xD;&#xA;Roboto" size="9" isBold="false"/>
+						<font fontName="Roboto" size="9" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{WAREHOUSE}]]></textFieldExpression>
 				</textField>
@@ -415,21 +421,21 @@ ORDER BY customer."Name" DESC]]>
 				<textField evaluationTime="Report">
 					<reportElement style="Column header" x="533" y="0" width="40" height="20" forecolor="#736343" uuid="0193f9b3-1559-491a-8580-b6988863b6a1"/>
 					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="false"/>
+						<font fontName="Roboto" size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement style="Column header" x="453" y="0" width="80" height="20" forecolor="#736343" uuid="d00b105e-494b-418b-8ac9-8b1b4824f4f0"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font size="10" isBold="false"/>
+						<font fontName="Roboto" size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 				</textField>
 				<textField pattern="EEEEE dd MMMMM yyyy">
 					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="0616f3fe-0354-456f-8911-ec30ec51a5ae"/>
 					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="false"/>
+						<font fontName="Roboto" size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
@@ -440,18 +446,30 @@ ORDER BY customer."Name" DESC]]>
 		<band height="56" splitType="Stretch">
 			<textField>
 				<reportElement x="380" y="10" width="50" height="30" uuid="73da0057-ea86-4f0c-969b-80fff94d1922"/>
+				<textElement>
+					<font fontName="Roboto"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{NETTO1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="430" y="10" width="50" height="30" uuid="8e643010-4145-4ba0-a331-2ffa4cb5e71a"/>
+				<textElement>
+					<font fontName="Roboto"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{BRUTTO1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="480" y="10" width="50" height="30" uuid="89f943a4-9dfc-4a6b-b687-a5ce68020024"/>
+				<textElement>
+					<font fontName="Roboto"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{TARE1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="530" y="10" width="62" height="30" uuid="489099f4-ab37-494e-a411-354f280e8b92"/>
+				<textElement>
+					<font fontName="Roboto"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{OBIEM1}]]></textFieldExpression>
 			</textField>
 		</band>
