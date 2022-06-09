@@ -37,7 +37,7 @@
        main."W2At" end_,
 --        main.ID,
        main."TRANSPNO_HASH",
-    convert(REPLACE(main."ExtF01", ',', '.'), decimal) obiem,
+    convert(REPLACE(main."ExtF01", ',', '.'), float) obiem,
     transpcustomer."Name" transpcustomer,
     main."Netto" netto,
     main."Brutto" brutto,
@@ -104,7 +104,7 @@ ORDER BY customer."Name" DESC]]>
 		<property name="com.jaspersoft.studio.field.label" value="TRANSPNO_HASH"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="WMAIN"/>
 	</field>
-	<field name="OBIEM" class="java.math.BigDecimal">
+	<field name="OBIEM" class="java.lang.Float">
 		<property name="com.jaspersoft.studio.field.name" value="OBIEM"/>
 		<property name="com.jaspersoft.studio.field.label" value="OBIEM"/>
 	</field>
@@ -318,7 +318,7 @@ ORDER BY customer."Name" DESC]]>
 					<textElement>
 						<font fontName="Roboto" size="9" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{START_}.toLocalDateTime().format(java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")) + "\n" + $F{END_}.toLocalDateTime().format(java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")) ]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{START_}.toLocalDateTime().format(java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")) + "\n" + $F{END_}.toLocalDateTime().format(java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="170" y="0" width="60" height="30" uuid="f455a365-23e3-4c98-be09-7dbbf2bca03d">

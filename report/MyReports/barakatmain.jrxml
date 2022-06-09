@@ -32,7 +32,8 @@
 --        main."State" ,
     customer."Name" customer,
     product."Name" product,
-    sum(convert(REPLACE(main."ExtF01", ',', '.'), decimal)) obiem  
+    wareh."Name" warehouse,
+    sum(convert(REPLACE(main."ExtF01", ',', '.'), float)) obiem  
 --доставка груза
 FROM wcargo cargo
         --клиент заказчик
@@ -47,14 +48,14 @@ FROM wcargo cargo
         --продукт/материал
          left join bkproducts product ON
         cargo."ProductLink" = product."ID"
-    
+    left join bkwarehouses wareh on wareh."ID" = cargo."WarehouseOutLink"
 
 where 
 main."W1At" >  $P{start}  
 and  main."W1At" < $P{end} 
 and main."W2At" is not null 
 
-group by customer."Name", product."Name"
+group by customer."Name", product."Name", wareh."Name"
 -- and customer."Name" in ('')
 -- and main.ID = 82631
 ORDER BY customer."Name" DESC]]>
@@ -69,7 +70,12 @@ ORDER BY customer."Name" DESC]]>
 		<property name="com.jaspersoft.studio.field.label" value="PRODUCT"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="BKPRODUCTS"/>
 	</field>
-	<field name="OBIEM" class="java.math.BigDecimal">
+	<field name="WAREHOUSE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Name"/>
+		<property name="com.jaspersoft.studio.field.label" value="WAREHOUSE"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="BKWAREHOUSES"/>
+	</field>
+	<field name="OBIEM" class="java.lang.Float">
 		<property name="com.jaspersoft.studio.field.name" value="OBIEM"/>
 		<property name="com.jaspersoft.studio.field.label" value="OBIEM"/>
 	</field>
@@ -111,7 +117,7 @@ ORDER BY customer."Name" DESC]]>
 				<text><![CDATA[Контрагент]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="230" y="-1" width="200" height="16" uuid="376f71cb-80d3-46ed-b308-40723305d81d">
+				<reportElement x="220" y="0" width="200" height="16" uuid="376f71cb-80d3-46ed-b308-40723305d81d">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d4646475-85a7-40ac-bc2d-4f14e0e786d8"/>
 				</reportElement>
 				<textElement>
@@ -120,13 +126,22 @@ ORDER BY customer."Name" DESC]]>
 				<text><![CDATA[Материал]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="480" y="0" width="130" height="16" uuid="0fe19d7b-e77f-430a-ae54-a81840d2d9ed">
+				<reportElement x="615" y="0" width="130" height="16" uuid="0fe19d7b-e77f-430a-ae54-a81840d2d9ed">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f3e82ecb-7fb1-4f5b-b542-36ed15db3952"/>
 				</reportElement>
 				<textElement>
 					<font fontName="Roboto" size="9" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Объем]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="-1" width="168" height="18" uuid="170f1546-920e-40d7-9639-e88208a23a4c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1a0b09fc-5dfa-4016-bbfe-fc0b8a7a1662"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Roboto"/>
+				</textElement>
+				<text><![CDATA[Пункт доставки]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -144,7 +159,7 @@ ORDER BY customer."Name" DESC]]>
 					<textFieldExpression><![CDATA[$F{CUSTOMER}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="230" y="0" width="202" height="16" uuid="477938a9-4f94-44cb-8e25-ad8040c34622">
+					<reportElement x="220" y="0" width="202" height="16" uuid="477938a9-4f94-44cb-8e25-ad8040c34622">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d4646475-85a7-40ac-bc2d-4f14e0e786d8"/>
 					</reportElement>
 					<textElement>
@@ -153,13 +168,22 @@ ORDER BY customer."Name" DESC]]>
 					<textFieldExpression><![CDATA[$F{PRODUCT}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="480" y="0" width="130" height="16" uuid="668f2f20-e0c6-4dbe-baf4-703a753376d0">
+					<reportElement x="615" y="0" width="130" height="16" uuid="668f2f20-e0c6-4dbe-baf4-703a753376d0">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f3e82ecb-7fb1-4f5b-b542-36ed15db3952"/>
 					</reportElement>
 					<textElement>
 						<font fontName="Roboto" size="9" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{OBIEM}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement style="Detail" x="422" y="0" width="168" height="15" uuid="45dede32-fb19-4787-87fb-f85aa3a8f1ef">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1a0b09fc-5dfa-4016-bbfe-fc0b8a7a1662"/>
+					</reportElement>
+					<textElement>
+						<font fontName="Roboto"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{WAREHOUSE}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
