@@ -1,7 +1,7 @@
 package temp;
 
-import barakat.app.aggregator.entity.tctransport.batch.BkCategoriesItemProcessor;
-import barakat.app.aggregator.entity.tctransport.model.gen.Bkcategories;
+import barakat.tctransport.batch.BkCategoriesItemProcessor;
+import barakat.tctransport.model.gen.Bkcategories;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.batch.core.Job;

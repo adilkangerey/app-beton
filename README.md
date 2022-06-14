@@ -25,3 +25,9 @@ https://github.com/smartnews/jpa-entity-generator
  use `mvn spring-data-generator:repositories`
 
 https://github.com/cmeza20/spring-data-generator
+
+####Swagger
+
+В проекте настроен swagger согласно статьи https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api
+
+для перехода на swagger нужно вписать http://localhost:[port]/swagger-ui.html

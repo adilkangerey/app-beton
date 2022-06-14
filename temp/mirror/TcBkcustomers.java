@@ -1,4 +1,4 @@
-package barakat.app.aggregator.entity.app.model.mirror;
+package barakat.app.model.mirror;
 
 import lombok.Data;
 

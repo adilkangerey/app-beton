@@ -1,6 +1,6 @@
 package temp;
 
-import barakat.app.aggregator.entity.tctransport.model.gen.Bkcategories;
+import barakat.tctransport.model.gen.Bkcategories;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.BatchStatus;

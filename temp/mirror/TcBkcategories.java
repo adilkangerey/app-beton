@@ -1,6 +1,6 @@
-package barakat.app.aggregator.entity.app.model.mirror;
+package barakat.app.model.mirror;
 
-import barakat.app.aggregator.entity.tctransport.interf.BkcategoriesInterf;
+import barakat.tctransport.interf.BkcategoriesInterf;
 import lombok.Data;
 
 import javax.persistence.Column;
