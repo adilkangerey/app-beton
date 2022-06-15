@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jdbcDataAdapter class="net.sf.jasperreports.data.jdbc.JdbcDataAdapterImpl">
+  <name>New Data Adapter FB</name>
+  <classpath>C:\Users\00041275\Downloads\app-beton\lib\jaybird-full-4.0.6.java8.jar</classpath>
+  <driver>org.firebirdsql.jdbc.FBDriver</driver>
+  <username>sysdba</username>
+  <password>masterkey</password>
+  <url>jdbc:firebirdsql://localhost:3050/C:\etalon\TSTransport\TSTRANSPORT.FDB?encoding=UTF8</url>
+  <database></database>
+  <savePassword>true</savePassword>
+  <serverAddress></serverAddress>
+  <autoCommit>false</autoCommit>
+  <readOnly>true</readOnly>
+  <transactionIsolation>READ_COMMITTED</transactionIsolation>
+</jdbcDataAdapter>

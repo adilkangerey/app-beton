@@ -23,7 +23,7 @@ import java.util.List;
 @Log4j2
 @EnableScheduling
 @EnableWebMvc
-@Profile({"test", "test-pg", "test-hamachi"})
+@Profile({"test", "test-pg", "test-hamachi", "test-fb"})
 public class Application implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

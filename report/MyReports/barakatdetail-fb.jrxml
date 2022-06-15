@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Coffee_2" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ced95029-b569-4027-895c-af2843a4e088">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapterFB.jrdax"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="start" class="java.sql.Timestamp"/>
+	<parameter name="end" class="java.sql.Timestamp"/>
+	<parameter name="projectPath" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="customfilter" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+--        main."State" ,
+    customer."Name" customer,
+    product."Name" product,
+       main."W1At" start_,
+       main."W2At" end_,
+--        main.ID,
+       main."TRANSPNO_HASH",
+    case when main."ExtF01" = '' then cast ('0' as float)
+       else cast(REPLACE(main."ExtF01", ',', '.') as float) end as obiem,
+    transpcustomer."Name" transpcustomer,
+    main."Netto" netto,
+    main."Brutto" brutto,
+       round(main."Netto"/(case when main."ExtF01" = '' then cast ('1' as float)
+       else cast(REPLACE(main."ExtF01", ',', '.') as float) end), 2) kub,
+       main."Tare" tare,
+       user_."Name" operator,
+       wareh."Name" warehouse
+--доставка груза
+FROM "wCargo" cargo
+        --клиент заказчик
+         left join "bkCustomers" customer ON
+        cargo."CustomerLink" = customer."ID"
+        --детали
+         left join "wUnits" unit ON
+        cargo."wUnitsLink" = unit."ID"
+        --основные данные заявки
+         left join "wMain" main ON
+        unit."wMainLink" = main."ID"
+        --продукт/материал
+         left join "bkProducts" product ON
+        cargo."ProductLink" = product."ID"
+        --транспорт
+        left join "bkTransp" transp on
+        main."TRANSPNO_HASH" = transp."TranspNum"
+        --перевозчик транспорта
+        left join "bkCustomers" transpcustomer on transp."SupplierLink" = transpcustomer.ID
+        --оператор
+       left join "bkUsers" user_ on user_."ID" = main."User1Link"
+        left join "bkWarehouses" wareh on wareh."ID" = cargo."WarehouseOutLink"
+where 
+main."W1At" >  $P{start}  
+and  main."W1At" < $P{end} 
+and main."W2At" is not null 
+
+$P!{customfilter}
+--group by customer."Name", product."Name"
+-- and customer."Name" in ('')
+-- and main.ID = 82631
+ORDER BY customer."Name" DESC]]>
+	</queryString>
+	<field name="CUSTOMER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Name"/>
+		<property name="com.jaspersoft.studio.field.label" value="CUSTOMER"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="BKCUSTOMERS"/>
+	</field>
+	<field name="PRODUCT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Name"/>
+		<property name="com.jaspersoft.studio.field.label" value="PRODUCT"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="BKPRODUCTS"/>
+	</field>
+	<field name="START_" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="W1At"/>
+		<property name="com.jaspersoft.studio.field.label" value="START_"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="WMAIN"/>
+	</field>
+	<field name="END_" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="W2At"/>
+		<property name="com.jaspersoft.studio.field.label" value="END_"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="WMAIN"/>
+	</field>
+	<field name="TRANSPNO_HASH" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TRANSPNO_HASH"/>
+		<property name="com.jaspersoft.studio.field.label" value="TRANSPNO_HASH"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="WMAIN"/>
+	</field>
+	<field name="OBIEM" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="OBIEM"/>
+		<property name="com.jaspersoft.studio.field.label" value="OBIEM"/>
+	</field>
+	<field name="TRANSPCUSTOMER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Name"/>
+		<property name="com.jaspersoft.studio.field.label" value="TRANSPCUSTOMER"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="BKCUSTOMERS"/>
+	</field>
+	<field name="NETTO" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="Netto"/>
+		<property name="com.jaspersoft.studio.field.label" value="NETTO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="WMAIN"/>
+	</field>
+	<field name="BRUTTO" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="Brutto"/>
+		<property name="com.jaspersoft.studio.field.label" value="BRUTTO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="WMAIN"/>
+	</field>
+	<field name="KUB" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="KUB"/>
+		<property name="com.jaspersoft.studio.field.label" value="KUB"/>
+	</field>
+	<field name="TARE" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="Tare"/>
+		<property name="com.jaspersoft.studio.field.label" value="TARE"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="WMAIN"/>
+	</field>
+	<field name="OPERATOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Name"/>
+		<property name="com.jaspersoft.studio.field.label" value="OPERATOR"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="BKUSERS"/>
+	</field>
+	<field name="WAREHOUSE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Name"/>
+		<property name="com.jaspersoft.studio.field.label" value="WAREHOUSE"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="BKWAREHOUSES"/>
+	</field>
+	<variable name="NETTO1" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{NETTO}]]></variableExpression>
+	</variable>
+	<variable name="BRUTTO1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{BRUTTO}]]></variableExpression>
+	</variable>
+	<variable name="TARE1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{TARE}]]></variableExpression>
+	</variable>
+	<variable name="OBIEM1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{OBIEM}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="57" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="10" width="810" height="46" uuid="b5cf17d4-58a2-4933-91f8-c26f314e2a08"/>
+				<textElement textAlignment="Center">
+					<font fontName="Roboto" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Отгрузка бетона ТОО BARAKAT INVEST c " +  $P{start}.toLocalDateTime().format(java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")) + " по " + $P{end}.toLocalDateTime().format(java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")) + ", фильтр по клиентам, складам"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="809" height="1" uuid="1a61a836-d137-48b1-ad67-6ff64600bf93"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="90" y="0" width="80" height="16" uuid="359ee84a-094e-4b87-b134-35cfa8150ae2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b27dfe09-c805-424b-989d-ce7cd1eb75f0"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Roboto" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Контрагент]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="-1" width="80" height="16" uuid="376f71cb-80d3-46ed-b308-40723305d81d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d4646475-85a7-40ac-bc2d-4f14e0e786d8"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Roboto" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Груз]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="0" width="88" height="16" uuid="25e11c88-ae2b-4e5a-9478-81fe382fcaf8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a34fc005-398a-4a52-bb1f-3dac3f1359c1"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Roboto" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Дата заезда/выезд]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="-1" width="60" height="16" uuid="08f45e0b-f0b0-4af8-be2a-ba99b622d2d9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3700a62a-1598-4f16-9a59-1e0efa5990e8"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Roboto" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Номер маш]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="530" y="-1" width="62" height="16" uuid="0fe19d7b-e77f-430a-ae54-a81840d2d9ed">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f3e82ecb-7fb1-4f5b-b542-36ed15db3952"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Roboto" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Объем]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="-1" width="70" height="16" uuid="57228028-1ae3-47cc-8854-30121a392f7a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c31163d4-cc16-49e2-a7a4-82732aa7f98b"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Roboto" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Перевозчик]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="-1" width="50" height="16" uuid="1afcee90-1a83-4c11-97ab-19fd46948da7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4dae786b-d80b-43bc-a595-a030fd2d7cfe"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Roboto" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Нетто]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="-1" width="50" height="16" uuid="68f7fd76-4eda-4f53-9fcd-2833caf19fd3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6dd21390-0deb-416d-bbef-dd9ac4067166"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Roboto" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Брутто]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="592" y="-1" width="62" height="16" uuid="2f6a2093-6f9f-47e4-91d4-0381998214fb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="93dec438-10b8-4096-bd67-ab5b7611e311"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Roboto" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Плотн, кг/м3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="-1" width="50" height="16" uuid="7f603a02-2076-4008-ab2e-c1128e37dd3f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e5fde4fe-582f-4e00-adff-e32f0f383409"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Roboto" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Тара]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="654" y="0" width="62" height="16" uuid="eed2bdbf-6d88-4fdc-863a-a4bcf033f173">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0da0ed5f-ba07-4089-955a-663dfd902205"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Roboto" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Оператор]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="716" y="0" width="92" height="16" uuid="29607704-f5dd-445e-b859-042975840e87">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d7eb0249-0063-4ee7-8bf3-e7078e863752"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Roboto" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Пункт назначения]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="810" height="30" uuid="a98495d8-3c8d-4fa0-81f5-30c3efc2f766"/>
+				<textField>
+					<reportElement x="90" y="0" width="80" height="30" uuid="a86a067b-a69c-4ee9-b046-c2e9e0b4d777">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b27dfe09-c805-424b-989d-ce7cd1eb75f0"/>
+					</reportElement>
+					<textElement>
+						<font fontName="Roboto" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CUSTOMER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="230" y="0" width="80" height="30" uuid="477938a9-4f94-44cb-8e25-ad8040c34622">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d4646475-85a7-40ac-bc2d-4f14e0e786d8"/>
+					</reportElement>
+					<textElement>
+						<font fontName="Roboto" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PRODUCT}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="1" y="0" width="88" height="30" uuid="83af4bf9-572f-4fce-bedf-5f0ea382cb85">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a34fc005-398a-4a52-bb1f-3dac3f1359c1"/>
+					</reportElement>
+					<textElement>
+						<font fontName="Roboto" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{START_}.toLocalDateTime().format(java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")) + "\n" + $F{END_}.toLocalDateTime().format(java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="170" y="0" width="60" height="30" uuid="f455a365-23e3-4c98-be09-7dbbf2bca03d">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3700a62a-1598-4f16-9a59-1e0efa5990e8"/>
+					</reportElement>
+					<textElement>
+						<font fontName="Roboto" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TRANSPNO_HASH}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="530" y="0" width="62" height="30" uuid="668f2f20-e0c6-4dbe-baf4-703a753376d0">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f3e82ecb-7fb1-4f5b-b542-36ed15db3952"/>
+					</reportElement>
+					<textElement>
+						<font fontName="Roboto" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{OBIEM}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="310" y="0" width="70" height="30" uuid="5ddb678e-7cfa-4e98-914f-91b42aa7c14a">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c31163d4-cc16-49e2-a7a4-82732aa7f98b"/>
+					</reportElement>
+					<textElement>
+						<font fontName="Roboto" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TRANSPCUSTOMER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="380" y="0" width="50" height="30" uuid="45add7d4-a6b8-4829-b683-d90129f333df">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4dae786b-d80b-43bc-a595-a030fd2d7cfe"/>
+					</reportElement>
+					<textElement>
+						<font fontName="Roboto" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NETTO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="430" y="0" width="50" height="30" uuid="2ab6f557-538c-4f98-93e5-62bcd56e00de">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6dd21390-0deb-416d-bbef-dd9ac4067166"/>
+					</reportElement>
+					<textElement>
+						<font fontName="Roboto" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{BRUTTO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="592" y="0" width="62" height="30" uuid="c4796e06-686e-4379-bc51-56073b9a9819">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="93dec438-10b8-4096-bd67-ab5b7611e311"/>
+					</reportElement>
+					<textElement>
+						<font fontName="Roboto" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{KUB}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="480" y="0" width="50" height="30" uuid="793b1356-b7b5-405b-9823-85bc1b78aeba">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e5fde4fe-582f-4e00-adff-e32f0f383409"/>
+					</reportElement>
+					<textElement>
+						<font fontName="Roboto" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TARE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="654" y="0" width="62" height="30" uuid="b54eb4cc-e18d-49e6-9e67-cdbe120d36ce">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0da0ed5f-ba07-4089-955a-663dfd902205"/>
+					</reportElement>
+					<textElement>
+						<font fontName="Roboto" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{OPERATOR}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="716" y="0" width="92" height="30" uuid="f5b7c020-3c39-4e2e-9269-13e24adc51e5">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d7eb0249-0063-4ee7-8bf3-e7078e863752"/>
+					</reportElement>
+					<textElement>
+						<font fontName="Roboto" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{WAREHOUSE}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="809" height="1" uuid="fa45a887-615a-4d84-a2d7-8a2219671b3c"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="597" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="183682bc-d976-4756-83e0-6625a3f98ed1"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="533" y="0" width="40" height="20" forecolor="#736343" uuid="0193f9b3-1559-491a-8580-b6988863b6a1"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Roboto" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="453" y="0" width="80" height="20" forecolor="#736343" uuid="d00b105e-494b-418b-8ac9-8b1b4824f4f0"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Roboto" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="0616f3fe-0354-456f-8911-ec30ec51a5ae"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Roboto" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="56" splitType="Stretch">
+			<textField>
+				<reportElement x="380" y="10" width="50" height="30" uuid="73da0057-ea86-4f0c-969b-80fff94d1922"/>
+				<textElement>
+					<font fontName="Roboto"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{NETTO1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="10" width="50" height="30" uuid="8e643010-4145-4ba0-a331-2ffa4cb5e71a"/>
+				<textElement>
+					<font fontName="Roboto"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{BRUTTO1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="10" width="50" height="30" uuid="89f943a4-9dfc-4a6b-b687-a5ce68020024"/>
+				<textElement>
+					<font fontName="Roboto"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TARE1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="530" y="10" width="62" height="30" uuid="489099f4-ab37-494e-a411-354f280e8b92"/>
+				<textElement>
+					<font fontName="Roboto"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{OBIEM1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -40,6 +40,10 @@ public class AppDBConfiguration {
         properties.put("hibernate.hbm2ddl.auto", env.getProperty("app.datasource.thisapp-hibernate.hbm2ddl.auto"));
         properties.put("hibernate.dialect", env.getProperty("app.datasource.thisapp-hibernate.dialect"));
         properties.put("hibernate.show_sql", env.getProperty("app.datasource.thisapp-hibernate.show-sql"));
+        String prop = env.getProperty("app.datasource.tctransport-hibernate.physical_naming_strategy");
+        if(!prop.isEmpty()){
+            properties.put("hibernate.physical_naming_strategy", prop);
+        }
         em.setJpaPropertyMap(properties);
         return em;
     }

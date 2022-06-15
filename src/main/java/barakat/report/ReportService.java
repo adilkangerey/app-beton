@@ -15,7 +15,7 @@ import java.util.*;
 
 @Log4j2
 @RestController
-@RequestMapping("barakat/report")
+@RequestMapping("barakat")
 public class ReportService {
 
     @Autowired
@@ -37,7 +37,7 @@ public class ReportService {
      * @throws IOException
      */
     @CrossOrigin
-    @PostMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "report/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     private @ResponseBody
     String getReport(@PathVariable String name, @RequestBody List<ReportParameter> parameters, HttpServletResponse response) throws JasperException, IOException {
         Map<String, Object> parameters2 = new HashMap<>();
@@ -61,16 +61,16 @@ public class ReportService {
 
 
     @CrossOrigin
-    @GetMapping(value = "/download/{fileName}", produces = MediaType.APPLICATION_PDF_VALUE)
+    @GetMapping(value = "report/download/{fileName}", produces = MediaType.APPLICATION_PDF_VALUE)
     private void downloadReport(@PathVariable String fileName, HttpServletResponse response) throws IOException {
         FileInputStream f = new FileInputStream(report.outputFolder+"/"+fileName);
         IOUtils.copy(f, response.getOutputStream());
     }
     @CrossOrigin
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "report/", produces = MediaType.APPLICATION_JSON_VALUE)
     private @ResponseBody List<ReportJasper> getAllReport(){
         List<ReportJasper> list = new ArrayList<>();
-        list.add(new ReportJasper("barakatdetail", "Отчет Баракат Детально")
+        list.add(new ReportJasper("barakatdetail-fb", "Отчет Баракат Детально")
                 .parameter("start", "java.sql.Timestamp", "Дата начала", "2022-04-02T10:10")
                 .parameter("end", "java.sql.Timestamp", "Дата окончания", "2022-04-10T10:10")
 //                .parameter("customfilter", "java.lang.String", "фильтр", "and customer.\"Name\" in ('') and wareh.\"Name\" in ('')")
