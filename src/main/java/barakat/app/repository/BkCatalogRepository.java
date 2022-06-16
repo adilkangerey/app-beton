@@ -43,17 +43,7 @@ public interface BkCatalogRepository  extends JpaRepository<Bkcustomers, Integer
 //            "        --основные данные заявки\n" +
             "         left join barakat.app.aggregator.entity.tctransport.model.gen.Wmain main ON\n" +
             "        unit.wmainlink = main.id\n" +
-//            "        --продукт/материал\n" +
-            "         left join barakat.app.aggregator.entity.tctransport.model.gen.Bkproducts product ON\n" +
-            "        cargo.productlink = product.id\n" +
-//            "        --транспорт\n" +
-            "        left join barakat.app.aggregator.entity.tctransport.model.gen.Bktransp transp on\n" +
-            "        main.transpnoHash = transp.transpnum\n" +
-//            "        --перевозчик транспорта\n" +
-            "        left join barakat.app.aggregator.entity.tctransport.model.gen.Bkcustomers transpcustomer on transp.supplierlink = transpcustomer.id\n" +
-//            "        --оператор\n" +
-            "        left join barakat.app.aggregator.entity.tctransport.model.gen.Bkusers user_ on user_.id = main.user1link\n" +
-            "        left join barakat.app.aggregator.entity.tctransport.model.gen.Bkwarehouses wareh on wareh.id = cargo.warehouseoutlink\n" +
+
 //            "\n" +
             "where \n" +
             "main.w1at >  :start  \n" +
@@ -85,25 +75,12 @@ public interface BkCatalogRepository  extends JpaRepository<Bkcustomers, Integer
             "       wareh.name\n" +
 //            "--доставка груза\n" +
             "FROM barakat.app.aggregator.entity.tctransport.model.gen.Wcargo cargo\n" +
-//            "        --клиент заказчик\n" +
-            "         left join barakat.app.aggregator.entity.tctransport.model.gen.Bkcustomers customer ON\n" +
-            "        cargo.customerlink = customer.id\n" +
 //            "        --детали\n" +
             "         left join barakat.app.aggregator.entity.tctransport.model.gen.Wunits unit ON\n" +
             "        cargo.wunitslink = unit.id\n" +
 //            "        --основные данные заявки\n" +
             "         left join barakat.app.aggregator.entity.tctransport.model.gen.Wmain main ON\n" +
             "        unit.wmainlink = main.id\n" +
-//            "        --продукт/материал\n" +
-            "         left join barakat.app.aggregator.entity.tctransport.model.gen.Bkproducts product ON\n" +
-            "        cargo.productlink = product.id\n" +
-//            "        --транспорт\n" +
-            "        left join barakat.app.aggregator.entity.tctransport.model.gen.Bktransp transp on\n" +
-            "        main.transpnoHash = transp.transpnum\n" +
-//            "        --перевозчик транспорта\n" +
-            "        left join barakat.app.aggregator.entity.tctransport.model.gen.Bkcustomers transpcustomer on transp.supplierlink = transpcustomer.id\n" +
-//            "        --оператор\n" +
-            "        left join barakat.app.aggregator.entity.tctransport.model.gen.Bkusers user_ on user_.id = main.user1link\n" +
             "        left join barakat.app.aggregator.entity.tctransport.model.gen.Bkwarehouses wareh on wareh.id = cargo.warehouseoutlink\n" +
 //            "\n" +
             "where \n" +

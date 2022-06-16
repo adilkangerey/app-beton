@@ -112,7 +112,11 @@
           <artifactId>jaybird</artifactId>
           <version>4.0.6.java8</version>
       </dependency>
-
+      <dependency>
+          <groupId>com.github.pengrad</groupId>
+          <artifactId>java-telegram-bot-api</artifactId>
+          <version>6.0.1</version>
+      </dependency>
       <!-- https://mvnrepository.com/artifact/com.h2database/h2  врем БД-->
       <dependency>
           <groupId>com.h2database</groupId>
@@ -122,11 +126,11 @@
 <!--        постгре база данных-->
       </dependency>
       <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
-      <dependency>
-          <groupId>org.postgresql</groupId>
-          <artifactId>postgresql</artifactId>
-          <version>42.2.25</version>
-      </dependency>
+<!--      <dependency>-->
+<!--          <groupId>org.postgresql</groupId>-->
+<!--          <artifactId>postgresql</artifactId>-->
+<!--          <version>42.2.25</version>-->
+<!--      </dependency>-->
 
 
       <!--  для использования сгенерированных плагином maven-jpa-entity-generator-plugin классов и другого   -->

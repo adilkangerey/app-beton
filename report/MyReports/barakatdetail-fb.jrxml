@@ -152,7 +152,7 @@ ORDER BY customer."Name" DESC]]>
 	<variable name="TARE1" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{TARE}]]></variableExpression>
 	</variable>
-	<variable name="OBIEM1" class="java.math.BigDecimal" calculation="Sum">
+	<variable name="OBIEM1" class="java.lang.Float" calculation="Sum">
 		<variableExpression><![CDATA[$F{OBIEM}]]></variableExpression>
 	</variable>
 	<background>

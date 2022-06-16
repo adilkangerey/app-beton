@@ -79,7 +79,7 @@ ORDER BY customer."Name" DESC]]>
 		<property name="com.jaspersoft.studio.field.name" value="OBIEM"/>
 		<property name="com.jaspersoft.studio.field.label" value="OBIEM"/>
 	</field>
-	<variable name="OBIEM1" class="java.math.BigDecimal" calculation="Sum">
+	<variable name="OBIEM1" class="java.lang.Float" calculation="Sum">
 		<variableExpression><![CDATA[$F{OBIEM}]]></variableExpression>
 	</variable>
 	<background>
@@ -229,7 +229,7 @@ ORDER BY customer."Name" DESC]]>
 	<summary>
 		<band height="56" splitType="Stretch">
 			<textField>
-				<reportElement x="480" y="10" width="62" height="30" uuid="489099f4-ab37-494e-a411-354f280e8b92"/>
+				<reportElement x="615" y="10" width="62" height="20" uuid="489099f4-ab37-494e-a411-354f280e8b92"/>
 				<textElement>
 					<font fontName="Roboto"/>
 				</textElement>
