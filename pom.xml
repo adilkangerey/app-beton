@@ -172,6 +172,12 @@
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter-hateoas</artifactId>
       </dependency>
+<!--        Проблема с датой-->
+      <dependency>
+          <groupId>com.fasterxml.jackson.datatype</groupId>
+          <artifactId>jackson-datatype-jsr310</artifactId>
+          <version>2.6.1</version>
+      </dependency>
   </dependencies>
 
   <repositories>
@@ -211,7 +217,7 @@
 <!--            <version>1.1.9</version>-->
 <!--            <configuration>-->
 <!--                <entity-package>-->
-<!--                    <param>barakat.app.aggregator.entity.tctransport.model.gen</param>-->
+<!--                    <param>barakat.app.aggregator.entity.tctransport.entity.gen</param>-->
 <!--                </entity-package>-->
 <!--                <repository-package>barakat.app.aggregator.entity.tctransport.repository.gen</repository-package>-->
 <!--                <repository-postfix>Repository</repository-postfix>-->
@@ -229,7 +235,7 @@
 <!--            <version>1.1.9</version>-->
 <!--            <configuration>-->
 <!--                <entity-package>-->
-<!--                    <param>barakat.app.aggregator.entity.tctransport.model.gen</param>-->
+<!--                    <param>barakat.app.aggregator.entity.tctransport.entity.gen</param>-->
 <!--                </entity-package>-->
 <!--                <repository-package>barakat.app.aggregator.entity.app.repository.mirrorgen</repository-package>-->
 <!--                <repository-postfix>TcRepository</repository-postfix>-->

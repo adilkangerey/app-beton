@@ -1,4 +1,4 @@
-package barakat.app.model.mirror;
+package barakat.app.entity.mirror;
 
 import barakat.tctransport.interf.BkcategoriesInterf;
 import lombok.Data;

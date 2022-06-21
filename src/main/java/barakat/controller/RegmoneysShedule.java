@@ -1,7 +1,6 @@
 package barakat.controller;
 
 import barakat.app.repository.mirrorgen.RegmoneysTcRepository;
-import barakat.tctransport.repository.gen.RegmoneysRepository;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
@@ -16,9 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RegmoneysShedule implements TcTransportCopySchedule {
     @Autowired
-    RegmoneysRepository repository;
-    @Autowired
-    RegmoneysTcRepository tcRepository;
+    RegmoneysTcRepository repository;
 
     @Override
     public Logger getLogger() {

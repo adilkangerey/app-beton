@@ -1,7 +1,6 @@
 package barakat.controller;
 
 import barakat.app.repository.mirrorgen.WordersTcRepository;
-import barakat.tctransport.repository.gen.WordersRepository;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
@@ -15,10 +14,9 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Configuration
 public class WordersShedule implements TcTransportCopySchedule {
+
     @Autowired
-    WordersRepository repository;
-    @Autowired
-    WordersTcRepository tcRepository;
+    WordersTcRepository repository;
 
     @Override
     public Logger getLogger() {

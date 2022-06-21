@@ -1,7 +1,6 @@
 package barakat.controller;
 
 import barakat.app.repository.mirrorgen.WimagesTcRepository;
-import barakat.tctransport.repository.gen.WimagesRepository;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
@@ -16,9 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WimagesShedule implements TcTransportCopySchedule {
     @Autowired
-    WimagesRepository repository;
-    @Autowired
-    WimagesTcRepository tcRepository;
+    WimagesTcRepository repository;
 
     @Override
     public Logger getLogger() {

@@ -1,14 +1,15 @@
 package barakat;
 
-import barakat.tctransport.repository.WmainCustomRepository;
 import barakat.report.JasperException;
 import barakat.report.Report;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -89,8 +90,6 @@ public class Application implements WebMvcConfigurer {
 //
 //    }
 
-    @Autowired
-    private WmainCustomRepository wmainRepository;
 
 
 

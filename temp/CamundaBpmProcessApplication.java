@@ -33,7 +33,7 @@ public class CamundaBpmProcessApplication extends ServletProcessApplication {
 //    addGroup(processEngine, "Agent", "Agent", "demo", "admin");
 //    addGroup(processEngine, "Management", "Management", "demo", "admin");
 
-    // create candidate groups from process model
+    // create candidate groups from process entity
     createGroupsAndFiltersForProcess(ProcessConstants.PROCESS_DEFINITION_KEY, processEngine);
 
     addFilterUserAuthorization(processEngine, "demo", FILTER_myTasks, FILTER_groupTasksFilter, FILTER_followUp, FILTER_overdue, FILTER_allTasksFilter);

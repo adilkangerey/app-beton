@@ -3,6 +3,8 @@ package barakat.tctransport.model.gen;
 import java.io.Serializable;
 import java.sql.*;
 import javax.persistence.*;
+
+import barakat.app.entity.AppOrders;
 import lombok.Data;
 
 /**
@@ -20,6 +22,13 @@ public class Wmain implements Serializable {
   @Id
   @Column(name = "\"ID\"", nullable = false)
   private Integer id;
+
+
+  @ManyToOne
+//  @JoinColumn(name="appOrder_id")
+  private AppOrders appOrder;
+
+
   /**
    * Время первого взвешивания
    */

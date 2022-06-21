@@ -2,7 +2,6 @@ package barakat.controller;
 
 import barakat.app.repository.mirrorgen.EventlogTcRepository;
 import barakat.tctransport.model.gen.Eventlog;
-import barakat.tctransport.repository.EventlogCustomRepository;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
@@ -22,9 +21,7 @@ import java.util.List;
 @Configuration
 public class EventlogShedule implements TcTransportCopySchedule {
     @Autowired
-    EventlogCustomRepository repository;
-    @Autowired
-    EventlogTcRepository tcRepository;
+    EventlogTcRepository repository;
     @Autowired
     CronProperties cron;
     @Value("${tctransport.sync.entity.large}")

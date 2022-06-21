@@ -1,8 +1,8 @@
 package barakat.controller;
 
+import barakat.app.repository.WcargoCustomRepository;
 import barakat.app.repository.mirrorgen.WcargoTcRepository;
 import barakat.tctransport.model.gen.Wcargo;
-import barakat.tctransport.repository.WcargoCustomRepository;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
@@ -22,8 +22,7 @@ import java.util.List;
 public class WcargoShedule implements TcTransportCopySchedule, TcTransportUpdateSchedule {
     @Autowired
     WcargoCustomRepository repository;
-    @Autowired
-    WcargoTcRepository tcRepository;
+
     @Autowired
     CronProperties cron;
     private String lastWcargoId = "wcargo.id.last";
@@ -37,7 +36,7 @@ public class WcargoShedule implements TcTransportCopySchedule, TcTransportUpdate
             cron.save(lastWcargoId, "0");
         }else{
             List<Wcargo> eventlogs = repository.queryById(Integer.valueOf(id), size);
-            tcRepository.saveAll(eventlogs);
+            repository.saveAll(eventlogs);
             if(eventlogs.size() != 0){
                 cron.save(lastWcargoId, eventlogs.get(eventlogs.size()-1).getId().toString());
             }
@@ -53,7 +52,7 @@ public class WcargoShedule implements TcTransportCopySchedule, TcTransportUpdate
             Integer id_ = Integer.parseInt(id);
             id_ -= usize; if(id_ < 0) id_ = 0;
             List<Wcargo> wunits = repository.queryById(id_, usize);
-            tcRepository.saveAll(wunits);
+            repository.saveAll(wunits);
         }
     }
 

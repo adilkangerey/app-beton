@@ -1,7 +1,6 @@
 package barakat.controller;
 
 import barakat.app.repository.mirrorgen.QTranspTcRepository;
-import barakat.tctransport.repository.gen.QTranspRepository;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
@@ -15,10 +14,9 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Configuration
 public class QTranspShedule implements TcTransportCopySchedule {
+
     @Autowired
-    QTranspRepository repository;
-    @Autowired
-    QTranspTcRepository tcRepository;
+    QTranspTcRepository repository;
 
     @Override
     public Logger getLogger() {

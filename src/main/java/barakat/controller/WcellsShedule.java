@@ -1,7 +1,6 @@
 package barakat.controller;
 
 import barakat.app.repository.mirrorgen.WcellsTcRepository;
-import barakat.tctransport.repository.gen.WcellsRepository;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
@@ -16,9 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WcellsShedule implements TcTransportCopySchedule {
     @Autowired
-    WcellsRepository repository;
-    @Autowired
-    WcellsTcRepository tcRepository;
+    WcellsTcRepository repository;
 
     @Override
     public Logger getLogger() {

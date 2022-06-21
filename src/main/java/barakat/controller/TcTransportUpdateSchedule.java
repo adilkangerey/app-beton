@@ -11,6 +11,5 @@ public interface TcTransportUpdateSchedule {
 
     Logger getLogger();
     CrudRepository getRepository();
-    CrudRepository getTcRepository();
     void update() throws CronPropertiesException;
 }

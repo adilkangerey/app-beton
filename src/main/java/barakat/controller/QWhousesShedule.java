@@ -1,7 +1,6 @@
 package barakat.controller;
 
 import barakat.app.repository.mirrorgen.QWhousesTcRepository;
-import barakat.tctransport.repository.gen.QWhousesRepository;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
@@ -15,10 +14,9 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Configuration
 public class QWhousesShedule implements TcTransportCopySchedule {
+
     @Autowired
-    QWhousesRepository repository;
-    @Autowired
-    QWhousesTcRepository tcRepository;
+    QWhousesTcRepository repository;
 
     @Override
     public Logger getLogger() {

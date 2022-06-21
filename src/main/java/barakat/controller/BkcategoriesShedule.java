@@ -1,7 +1,6 @@
 package barakat.controller;
 
 import barakat.app.repository.mirrorgen.BkcategoriesTcRepository;
-import barakat.tctransport.repository.gen.BkcategoriesRepository;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
@@ -17,9 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Configuration
 public class BkcategoriesShedule implements TcTransportCopySchedule {
     @Autowired
-    BkcategoriesRepository repository;
-    @Autowired
-    BkcategoriesTcRepository tcRepository;
+    BkcategoriesTcRepository repository;
 
     @Override
     public Logger getLogger() {

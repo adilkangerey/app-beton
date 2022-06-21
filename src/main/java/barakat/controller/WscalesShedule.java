@@ -1,8 +1,8 @@
 package barakat.controller;
 
+import barakat.app.repository.WscalesCustomRepository;
 import barakat.app.repository.mirrorgen.WscalesTcRepository;
 import barakat.tctransport.model.gen.Wscales;
-import barakat.tctransport.repository.WscalesCustomRepository;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
@@ -23,8 +23,6 @@ public class WscalesShedule implements TcTransportCopySchedule {
     @Autowired
     WscalesCustomRepository repository;
     @Autowired
-    WscalesTcRepository tcRepository;
-    @Autowired
     CronProperties cron;
     private String lastWscalesId = "wscales.id.last";
     @Value("${tctransport.sync.entity.large}")
@@ -37,7 +35,7 @@ public class WscalesShedule implements TcTransportCopySchedule {
             cron.save(lastWscalesId, "0");
         }else{
             List<Wscales> eventlogs = repository.queryById(Integer.valueOf(id), size);
-            tcRepository.saveAll(eventlogs);
+            repository.saveAll(eventlogs);
             if(eventlogs.size() != 0){
                 cron.save(lastWscalesId, eventlogs.get(eventlogs.size()-1).getId().toString());
             }

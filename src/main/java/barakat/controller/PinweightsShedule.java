@@ -1,7 +1,6 @@
 package barakat.controller;
 
 import barakat.app.repository.mirrorgen.PinweightsTcRepository;
-import barakat.tctransport.repository.gen.PinweightsRepository;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
@@ -16,9 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class PinweightsShedule implements TcTransportCopySchedule {
     @Autowired
-    PinweightsRepository repository;
-    @Autowired
-    PinweightsTcRepository tcRepository;
+    PinweightsTcRepository repository;
 
     @Override
     public Logger getLogger() {

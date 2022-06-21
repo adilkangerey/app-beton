@@ -1,15 +1,14 @@
 package barakat.controller;
 
+import barakat.app.repository.QEvlogCustomRepository;
 import barakat.app.repository.mirrorgen.QEvlogTcRepository;
 import barakat.tctransport.model.gen.QEvlog;
-import barakat.tctransport.repository.QEvlogCustomRepository;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.List;
 
@@ -20,10 +19,9 @@ import java.util.List;
 @Getter
 @Configuration
 public class QEvlogShedule implements TcTransportCopySchedule {
+
     @Autowired
     QEvlogCustomRepository repository;
-    @Autowired
-    QEvlogTcRepository tcRepository;
     @Autowired
     CronProperties cron;
     private String lastQevlogId = "qevlog.id.last";
@@ -38,7 +36,7 @@ public class QEvlogShedule implements TcTransportCopySchedule {
             cron.save(lastQevlogId, "0");
         }else{
             List<QEvlog>  eventlogs = repository.queryById(Integer.valueOf(id), size);
-            tcRepository.saveAll(eventlogs);
+            repository.saveAll(eventlogs);
             if(eventlogs.size() != 0){
                 cron.save(lastQevlogId, eventlogs.get(eventlogs.size()-1).getId().toString());
             }

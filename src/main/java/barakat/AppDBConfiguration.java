@@ -33,14 +33,19 @@ public class AppDBConfiguration {
         System.out.println("loading config");
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(appDataSource());
-        em.setPackagesToScan("barakat.app.model", "barakat.tctransport.model");
+        em.setPackagesToScan("barakat.app.entity", "barakat.tctransport.model");
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         final HashMap<String, Object> properties = new HashMap<String, Object>();
+//        vendorAdapter.dd
         properties.put("hibernate.hbm2ddl.auto", env.getProperty("app.datasource.thisapp-hibernate.hbm2ddl.auto"));
         properties.put("hibernate.dialect", env.getProperty("app.datasource.thisapp-hibernate.dialect"));
         properties.put("hibernate.show_sql", env.getProperty("app.datasource.thisapp-hibernate.show-sql"));
-        String prop = env.getProperty("app.datasource.tctransport-hibernate.physical_naming_strategy");
+//        properties.put("javax.persistence.schema-generation.scripts.action", env.getProperty("spring.jpa.properties.javax.persistence.schema-generation.scripts.action"));
+//        properties.put("javax.persistence.schema-generation.scripts.create-target", "./create-fb.sql");//env.getProperty("spring.jpa.properties.javax.persistence.schema-generation.scripts.create-target")
+//        properties.put("javax.persistence.schema-generation.scripts.create-source", env.getProperty("spring.jpa.properties.javax.persistence.schema-generation.scripts.create-source"));
+
+        String prop = env.getProperty("app.datasource.thisapp-hibernate.physical_naming_strategy");
         if(!prop.isEmpty()){
             properties.put("hibernate.physical_naming_strategy", prop);
         }

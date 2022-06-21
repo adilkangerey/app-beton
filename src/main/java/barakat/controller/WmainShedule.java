@@ -1,8 +1,8 @@
 package barakat.controller;
 
+import barakat.app.repository.WmainCustomRepository;
 import barakat.app.repository.mirrorgen.WmainTcRepository;
 import barakat.tctransport.model.gen.Wmain;
-import barakat.tctransport.repository.WmainCustomRepository;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Logger;
@@ -23,8 +23,6 @@ public class WmainShedule implements TcTransportCopySchedule, TcTransportUpdateS
     @Autowired
     WmainCustomRepository repository;
     @Autowired
-    WmainTcRepository tcRepository;
-    @Autowired
     CronProperties cron;
     private String lastQWrecsId = "wmain.id.last";
     @Value("${tctransport.sync.entity.large}")
@@ -37,7 +35,7 @@ public class WmainShedule implements TcTransportCopySchedule, TcTransportUpdateS
             cron.save(lastQWrecsId, "0");
         }else{
             List<Wmain> eventlogs = repository.queryById(Integer.valueOf(id), size);
-            tcRepository.saveAll(eventlogs);
+            repository.saveAll(eventlogs);
             if(eventlogs.size() != 0){
                 cron.save(lastQWrecsId, eventlogs.get(eventlogs.size()-1).getId().toString());
             }
@@ -53,7 +51,7 @@ public class WmainShedule implements TcTransportCopySchedule, TcTransportUpdateS
             Integer id_ = Integer.parseInt(id);
             id_ -= usize; if(id_ < 0) id_ = 0;
             List<Wmain> wunits = repository.queryById(id_, usize);
-            tcRepository.saveAll(wunits);
+            repository.saveAll(wunits);
         }
     }
 
