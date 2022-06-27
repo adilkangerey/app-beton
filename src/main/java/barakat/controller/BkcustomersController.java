@@ -51,6 +51,11 @@ public class BkcustomersController implements TcTransportCopySchedule {
         //todo подумать над HAL https://spring.io/guides/tutorials/rest/
         bkcustomers.setId(lastId() + 1);
         bkcustomers.setEnabled((short) 1);
+        bkcustomers.setEgrul("");
+        bkcustomers.setInn("");
+        bkcustomers.setKpp("");
+        bkcustomers.setNameHash("");
+        bkcustomers.setOgrn("");
         return repository.save(bkcustomers);
     }
 
