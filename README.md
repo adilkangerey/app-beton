@@ -35,3 +35,10 @@ https://github.com/cmeza20/spring-data-generator
 ####telegram
 
 https://github.com/pengrad/java-telegram-bot-api
+
+
+####Запуск
+
+mvn clean install
+mvn --projects backend spring-boot:run
+MainController - должен быть синхронизирован со списом поинтов vue
