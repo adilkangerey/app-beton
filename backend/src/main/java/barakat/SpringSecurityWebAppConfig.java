@@ -17,7 +17,8 @@ public class SpringSecurityWebAppConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-//                .antMatchers("/", "/home").permitAll() //зона открытая
+                //todo после рефакторинга с учетом бонита нужно будет закрыть доступ к апи
+                .antMatchers("/barakat/**").permitAll() //зона открытая
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -26,6 +27,8 @@ public class SpringSecurityWebAppConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
+
+
     }
 
     @Bean

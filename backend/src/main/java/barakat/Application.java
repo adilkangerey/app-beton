@@ -46,14 +46,24 @@ public class Application implements WebMvcConfigurer {
         registry.addResourceHandler("workbox*")
                 .addResourceLocations("classpath:/templates/public/");
 
+        registry.addResourceHandler("index.html")
+                .addResourceLocations("classpath:/templates/public/");
+
+        registry.addResourceHandler("manifest.json")
+                .addResourceLocations("classpath:/templates/public/");
+
+        registry.addResourceHandler("robots.txt")
+                .addResourceLocations("classpath:/templates/public/");
+
+
 
 //        registry.addResourceHandler("index.html").addResourceLocations("classpath:/META-INF/resources/public/");
     }
 
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/home").setViewName("home");
-        registry.addViewController("/").setViewName("home");
-        registry.addViewController("/hello").setViewName("hello");
+//        registry.addViewController("/home").setViewName("home");
+//        registry.addViewController("/").setViewName("home");
+//        registry.addViewController("/hello2").setViewName("hello2");
         registry.addViewController("/login").setViewName("login");
     }
 
