@@ -66,8 +66,8 @@ public class BkwarehousesController {
     }
 
     @GetMapping(value = "/", produces = "application/json")
-    List<Bkwarehouses> findAll(@Parameter Integer page, Integer size) throws NotFoundException {
-        return repository.findAll(PageRequest.of(page, size)).getContent();
+    List<Bkwarehouses> findAll(@Parameter Integer p, Integer c) throws NotFoundException {
+        return repository.findAll(PageRequest.of(p, c)).getContent();
     }
 
     @GetMapping(value = "/by-client/{clientId}", produces = "application/json")

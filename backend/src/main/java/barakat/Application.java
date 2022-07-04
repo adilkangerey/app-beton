@@ -64,7 +64,7 @@ public class Application implements WebMvcConfigurer {
 //        registry.addViewController("/home").setViewName("home");
 //        registry.addViewController("/").setViewName("home");
 //        registry.addViewController("/hello2").setViewName("hello2");
-        registry.addViewController("/login").setViewName("login");
+//        registry.addViewController("/login").setViewName("login");
     }
 
     /**
