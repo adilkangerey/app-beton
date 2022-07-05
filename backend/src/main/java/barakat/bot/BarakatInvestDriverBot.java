@@ -16,11 +16,11 @@ import java.net.Proxy;
 public class BarakatInvestDriverBot {
     @Value("${app.telegtam.driverbot}")
     String token;
-    @Value("${app.proxy.use}")
+    @Value("${app.proxy.use:false}")
     Boolean proxyUse;
-    @Value("${app.proxy.host}")
+    @Value("${app.proxy.host:null}")
     String proxyHost;
-    @Value("${app.proxy.port}")
+    @Value("${app.proxy.port:0}")
     Integer proxyPort;
 
     @Bean
