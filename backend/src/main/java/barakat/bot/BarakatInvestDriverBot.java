@@ -16,13 +16,22 @@ import java.net.Proxy;
 public class BarakatInvestDriverBot {
     @Value("${app.telegtam.driverbot}")
     String token;
+    @Value("${app.proxy.use}")
+    Boolean proxyUse;
+    @Value("${app.proxy.host}")
+    String proxyHost;
+    @Value("${app.proxy.port}")
+    Integer proxyPort;
 
     @Bean
     TelegramBot telegramDriverBot (){
-        String hostname = "proxy.halykbank.nb"/*127.0.0.1*/;
-        int port = 8080;
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(hostname, port));
-        OkHttpClient http = new OkHttpClient.Builder().proxy(proxy).build();
+        OkHttpClient http;
+        if(proxyUse){
+            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
+            http = new OkHttpClient.Builder().proxy(proxy).build();
+        }else{
+            http = new OkHttpClient.Builder().build();
+        }
         TelegramBot bot = new TelegramBot.Builder(token).okHttpClient(http).build();
         Keyboard keyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton[]{
