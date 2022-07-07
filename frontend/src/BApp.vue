@@ -9,7 +9,7 @@ import {createApp, h} from 'vue'
 import {createRouter, createWebHistory} from 'vue-router'
 
 
-import BuhRep from './BuhRep' // @ is an alias to /src
+import BuhRep from './views/BuhRep' // @ is an alias to /src
 
 createApp({
     data(){

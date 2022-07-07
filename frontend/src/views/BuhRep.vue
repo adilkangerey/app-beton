@@ -1,17 +1,17 @@
-
-    <template>
+<template>
   <div id="summary-report" >
     <h2>Сводный отчет</h2>
-    <div id="v-model-period">
-      <div id="v-model-select" class="demo">
-        <select v-model="selectedd">
-          <option disabled value="">Выберите один из вариантов</option>
-          <option>А</option>
-          <option>Б</option>
-          <option>В</option>
-        </select>
-        <span>Выбрано: {{ selectedd }}</span>
-      </div>
+    <div id="v-model-multiple-checkboxes">
+      <input type="checkbox" id="jack" value="Джек" v-model="checkedNames" />
+      <label for="jack">Джек</label>
+      <input type="checkbox" id="john" value="Джон" v-model="checkedNames" />
+      <label for="john">Джон</label>
+      <input type="checkbox" id="mike" value="Майк" v-model="checkedNames" />
+      <label for="mike">Майк</label>
+      <br />
+      <span>Отмеченные имена: {{ checkedNames }}</span>
+    </div>
+
       <label >Дата начала</label> <br>
       <input class="data-" type="date" placeholder="Введите дату" min="2000.01.01" max="2099.12.12" v-model="period">
       <input class="data-" type="time" placeholder="Введите время" v-model="period_goal"><br>
@@ -21,7 +21,6 @@
       <span>Список клиентов и пунктов доставки за период: {{ period_ }}</span>
     </div>
     <button href="#zatemnenie"><a href="#zatemnenie">aaaa</a></button>
-  </div>
   <div>
     <h2>Продолжение: Детальный отчёт</h2>
     <button>Выбрать клиентов и их пункты доставки</button>
@@ -41,15 +40,15 @@
   </div>
 </template>
 <script>
-import {createApp, h} from 'vue'
+import {createApp} from 'vue'
 
 createApp({
-  data(){
-    return{
-      selectedd: ''
+  data() {
+    return {
+      checkedNames: []
     }
   }
-}).mount('#selectedd')
+}).mount('#v-model-multiple-checkboxes')
 export default BuhRep
 </script>
 <style>
