@@ -1,23 +1,24 @@
-<template>
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="./BuhRep.css">
-    <script src="../BuhRep.js"></script>
-  </head>
-  <body>
+
+    <template>
   <div id="summary-report" >
     <h2>Сводный отчет</h2>
-    <div id="v-model-data">
+    <div id="v-model-period">
+      <div id="v-model-select" class="demo">
+        <select v-model="selectedd">
+          <option disabled value="">Выберите один из вариантов</option>
+          <option>А</option>
+          <option>Б</option>
+          <option>В</option>
+        </select>
+        <span>Выбрано: {{ selectedd }}</span>
+      </div>
       <label >Дата начала</label> <br>
-      <input class="data-" type="date" placeholder="Введите дату" min="2000.01.01" max="2099.12.12" v-model="periood">
-      <input class="data-" type="time" placeholder="Введите время" v-model="periood"><br>
+      <input class="data-" type="date" placeholder="Введите дату" min="2000.01.01" max="2099.12.12" v-model="period">
+      <input class="data-" type="time" placeholder="Введите время" v-model="period_goal"><br>
       <label id="labels">Дата окончания</label><br>
-      <input class="data_period" type="date" placeholder="Введите дату" min="2000.01.01" max="2099.12.12" v-model="periood">
-      <input class="data_period" type="time" placeholder="Введите время" v-model="periood"><br>
-      <span>Список клиентов и пунктов доставки за период: {{ periood }}</span>
+      <input class="data_period" type="date" placeholder="Введите дату" min="2000.01.01" max="2099.12.12" v-model="period">
+      <input class="data_period" type="time" placeholder="Введите время" v-model="period_goal"><br>
+      <span>Список клиентов и пунктов доставки за период: {{ period_ }}</span>
     </div>
     <button href="#zatemnenie"><a href="#zatemnenie">aaaa</a></button>
   </div>
@@ -38,9 +39,19 @@
       <a href="#" class="close">zhaby</a>
     </div>
   </div>
-  </body>
-  </html>
 </template>
+<script>
+import {createApp, h} from 'vue'
+
+createApp({
+  data(){
+    return{
+      selectedd: ''
+    }
+  }
+}).mount('#selectedd')
+export default BuhRep
+</script>
 <style>
 #zatemnenie {
   background: rgba(102, 102, 102, 0.5);
@@ -89,16 +100,5 @@ div{
   width: 43%;
 }
 </style>
-<script>
-import {createApp} from "vue";
 
-export const App ={
-  data(){
-    return{
-      periood: ''
-    }
-  }
-}
-createApp(App).mount('#v-model-data')
-</script>
 

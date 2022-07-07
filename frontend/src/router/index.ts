@@ -1,11 +1,16 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+// @ts-ignore
+import BuhRep from '../views/template/BuhRep.vue'
+import AboutView from '../views/AboutView.vue'
+
+// @ts-ignore
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'buhrep',
+    component: BuhRep
   },
   {
     path: '/about',
@@ -21,6 +26,7 @@ const routes: Array<RouteRecordRaw> = [
   //   name: 'login',
   //   component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
   // }
+
 ]
 
 const router = createRouter({

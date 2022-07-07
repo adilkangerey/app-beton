@@ -15,10 +15,14 @@ public class MainController {
 //    @Autowired
 //    UserDetailsService userDetailsService;
 
-    @GetMapping({"/", "/about"})
+    @GetMapping({"/", "/buhrep"})
     public ModelAndView index(Model model) {
         //SecurityContextHolder.getContext().getAuthentication().getName();
 //        model.addAttribute("eventName", SecurityContextHolder.getContext().getAuthentication().getName());
         return new ModelAndView("public/index.html");
     }
+//    @GetMapping({"/", "/buhrep"})
+//    public ModelAndView index(Model model) {
+//        return new ModelAndView("public/index.html");
+//    }
 }

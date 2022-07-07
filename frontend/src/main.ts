@@ -2,6 +2,6 @@ import { createApp } from 'vue'
 import './registerServiceWorker'
 import router from './router'
 // @ts-ignore
-import {App} from './views/BuhRep.js'
+import {BApp} from './views/template/BuhRep.vue'
 
-createApp(App).use(router).mount('#app')
+createApp(BApp).use(router).mount('#app')
