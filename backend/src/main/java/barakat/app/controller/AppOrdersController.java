@@ -1,5 +1,6 @@
 package barakat.app.controller;
 
+import barakat.app.entity.AppOrderStatus;
 import barakat.app.entity.AppOrders;
 import barakat.app.repository.AppOrdersRepository;
 import barakat.app.view.AppOrdersDetail;
@@ -43,10 +44,8 @@ public class AppOrdersController {
     AppOrders post(@RequestBody AppOrders appOrders) {
         //todo подумать над HAL https://spring.io/guides/tutorials/rest/
         appOrders.setId(lastId() + 1);
-
         appOrders.setCreateAt(LocalDateTime.now(ZoneId.of("UTC")));
-
-//        appOrders.setEnabled((short) 1);
+        appOrders.setStatus(AppOrderStatus.created.name());
         return repository.save(appOrders);
     }
 

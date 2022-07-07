@@ -15,9 +15,10 @@ create table "appOrders"
     "cubicMeter" FLOAT(7),
     "intervalMinutes" INTEGER,
     "intervalComment" VARCHAR(255),
-    "status":varchar(20)
-
+    "status" varchar(20)
 );
+
+
 -- alter table "wMain" drop constraint RDB$FOREIGN122;
 select * from rdb$relation_constraints where "RDB$RELATION_NAME" = 'wMain';
 select * from rdb$relation_constraints where "RDB$RELATION_NAME" = 'appOrders';
@@ -29,8 +30,6 @@ update unique index "RDB$PRIMARY119"
 alter table "appOrders"
     add or update constraint INTEG_611
                primary key ("id");
-
-
 --for update
 alter table "appOrders"
     add "startTime" TIMESTAMP,
@@ -40,4 +39,3 @@ alter table "appOrders"
 
 
 ;
-select * from "wMain";
