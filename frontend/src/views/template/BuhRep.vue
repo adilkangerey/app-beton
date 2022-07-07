@@ -1,13 +1,23 @@
 <template>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./BuhRep.css">
+    <script src="../BuhRep.js"></script>
+  </head>
+  <body>
   <div id="summary-report" >
     <h2>Сводный отчет</h2>
     <div id="v-model-data">
-    <label >Дата начала</label> <br>
-    <input class="data-" type="date" placeholder="Введите дату" min="2000.01.01" max="2099.12.12" v-model="period_v">
-    <input class="data-" type="time" placeholder="Введите время" v-model="period_v"><br>
-    <label id="labels">Дата окончания</label><br>
-    <input class="data_period" type="date" placeholder="Введите дату" min="2000.01.01" max="2099.12.12" v-model="period_v">
-    <input class="data_period" type="time" placeholder="Введите время" v-model="period_v"><br>
+      <label >Дата начала</label> <br>
+      <input class="data-" type="date" placeholder="Введите дату" min="2000.01.01" max="2099.12.12" v-model="periood">
+      <input class="data-" type="time" placeholder="Введите время" v-model="periood"><br>
+      <label id="labels">Дата окончания</label><br>
+      <input class="data_period" type="date" placeholder="Введите дату" min="2000.01.01" max="2099.12.12" v-model="periood">
+      <input class="data_period" type="time" placeholder="Введите время" v-model="periood"><br>
+      <span>Список клиентов и пунктов доставки за период: {{ periood }}</span>
     </div>
     <button href="#zatemnenie"><a href="#zatemnenie">aaaa</a></button>
   </div>
@@ -20,7 +30,7 @@
   </div>
   <div id="zatemnenie">
     <div id="okno">
-      <p>Список клиентов и пунктов доставки за период: <span>{{ period_v }}</span></p>
+
       <button><a>Получить клиентов</a></button>
       <button><a>Получить пункты доставки</a></button><br>
       <span>Клиенты:</span>
@@ -28,6 +38,8 @@
       <a href="#" class="close">zhaby</a>
     </div>
   </div>
+  </body>
+  </html>
 </template>
 <style>
 #zatemnenie {
@@ -72,22 +84,21 @@
 div{
   margin-left: 10px;
 }
-.data-{
+.data- {
   min-width: 200px;
   width: 43%;
 }
-#data-{
-  width:200px;
-}
 </style>
 <script>
-import {Vue} from "vue";
-//export default
-Vue.createApp({
-  data() {
-    return {
-      period_v: ''
+import {createApp} from "vue";
+
+export const App ={
+  data(){
+    return{
+      periood: ''
     }
   }
-}).mount('#v-model-data')
+}
+createApp(App).mount('#v-model-data')
 </script>
+
