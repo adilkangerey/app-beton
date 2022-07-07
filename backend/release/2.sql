@@ -14,13 +14,17 @@ create table "appOrders"
     "createdUser" VARCHAR(255),
     "cubicMeter" FLOAT(7),
     "intervalMinutes" INTEGER,
-    "intervalComment" VARCHAR(255)
+    "intervalComment" VARCHAR(255),
+    "status":varchar(20)
 
 );
-
-
-create or update unique index "RDB$PRIMARY119"
-          on "appOrders" ("id");
+-- alter table "wMain" drop constraint RDB$FOREIGN122;
+select * from rdb$relation_constraints where "RDB$RELATION_NAME" = 'wMain';
+select * from rdb$relation_constraints where "RDB$RELATION_NAME" = 'appOrders';
+alter table "wMain" drop  constraint ("appOrder") references "appOrders";
+alter table "wMain" add foreign key ("appOrder") references "appOrders";
+update unique index "RDB$PRIMARY119"
+          on "appOrders"("id");
 
 alter table "appOrders"
     add or update constraint INTEG_611
@@ -35,3 +39,5 @@ alter table "appOrders"
     add "intervalComment" VARCHAR(255)
 
 
+;
+select * from "wMain";

@@ -82,7 +82,8 @@ public class AppOrders implements Serializable {
     private LocalDateTime endTime;
     private Integer intervalMinutes;
     private String intervalComment;
-
+    /*rejected,opened,takedforwork,done,partdone*/
+    private String status;
 //  @Column(name = "\"Author\"", nullable = false)
 //  private Integer author;
 //  @Column(name = "\"Tare\"", nullable = true)
