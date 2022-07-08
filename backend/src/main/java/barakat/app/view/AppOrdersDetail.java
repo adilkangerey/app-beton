@@ -20,7 +20,7 @@ public class AppOrdersDetail extends AppOrders {
     public AppOrdersDetail(Integer bkProductId, Integer id, Integer bkCustomerId, Float coneSediment,
                            String construction, LocalDateTime createAt, String createdUser,
                            Float cubicMeter, LocalDateTime endTime, String intervalComment, Integer intervalMinutes,
-                           LocalDateTime startTime,Integer bkWarehouseId, String customerName, String productName, String warehouseName) {
+                           LocalDateTime startTime,Integer bkWarehouseId, String customerName, String productName, String warehouseName, String status) {
         this.setBkProductId(bkProductId);
         this.setId(id);
         this.setBkCustomerId(bkCustomerId);
@@ -36,7 +36,7 @@ public class AppOrdersDetail extends AppOrders {
         this.setEndTime(endTime);
         this.setIntervalComment(intervalComment);
         this.setIntervalMinutes(intervalMinutes);
-
+        this.setStatus(status);
         this.customerName = customerName;
         this.productName = productName;
         this.warehouseName = warehouseName;

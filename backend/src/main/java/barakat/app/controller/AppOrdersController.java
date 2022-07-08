@@ -65,7 +65,7 @@ public class AppOrdersController {
     }
 
     @GetMapping(value = "/detail/pages", produces = "application/json")
-    int findAllViewPages(@Parameter Integer p, @Parameter Integer c) throws NotFoundException {
+    int findAllViewCount(@Parameter Integer p, @Parameter Integer c) throws NotFoundException {
         return (int)repository.count()/c;
     }
 

@@ -25,7 +25,6 @@ public class Wmain implements Serializable {
 
 
   @ManyToOne
-//  @JoinColumn(name="appOrder_id")
   private AppOrders appOrder;
 
 
@@ -271,4 +270,5 @@ public class Wmain implements Serializable {
   private Integer carcassType;
   @Column(name = "\"DOC_ISSUE_AT\"", nullable = true)
   private Timestamp docIssueAt;
+
 }

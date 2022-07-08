@@ -1,4 +1,4 @@
---for create
+--for release
 create table "appOrders"
 (
     "id" INTEGER not null primary key,
@@ -17,6 +17,14 @@ create table "appOrders"
     "intervalComment" VARCHAR(255),
     "status" varchar(20)
 );
+
+
+alter table "wMain" 	add "appOrder" INTEGER;
+alter table "wMain" add foreign key ("appOrder") references "appOrders";
+alter table "wOrders" 	add "appOrder" INTEGER;
+alter table "wOrders" add foreign key ("appOrder") references "appOrders";
+
+
 
 
 -- alter table "wMain" drop constraint RDB$FOREIGN122;
