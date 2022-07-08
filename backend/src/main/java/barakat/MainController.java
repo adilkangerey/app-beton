@@ -15,7 +15,7 @@ public class MainController {
 //    @Autowired
 //    UserDetailsService userDetailsService;
 
-    @GetMapping({"/", "/about"})
+    @GetMapping({"/", "/about", "/buhrep"})
     public ModelAndView index(Model model) {
         //SecurityContextHolder.getContext().getAuthentication().getName();
 //        model.addAttribute("eventName", SecurityContextHolder.getContext().getAuthentication().getName());

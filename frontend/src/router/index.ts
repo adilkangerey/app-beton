@@ -1,8 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-// @ts-ignore
-import BuhRep from '../views/BuhRep.vue'
-import AboutView from '../views/AboutView.vue'
 
 // @ts-ignore
 
@@ -29,7 +26,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/buhrep',
     name: 'buhrep',
-    component: BuhRep
+    component: () => import(/* webpackChunkName: "about" */ '../views/BuhRep.vue')
   }
 ]
 

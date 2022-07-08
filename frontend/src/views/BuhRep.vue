@@ -1,56 +1,46 @@
 <template>
   <div id="summary-report" >
-    <h2>Сводный отчет</h2>
-    <div id="v-model-multiple-checkboxes">
-      <input type="checkbox" id="jack" value="Джек" v-model="checkedNames" />
-      <label for="jack">Джек</label>
-      <input type="checkbox" id="john" value="Джон" v-model="checkedNames" />
-      <label for="john">Джон</label>
-      <input type="checkbox" id="mike" value="Майк" v-model="checkedNames" />
-      <label for="mike">Майк</label>
-      <br />
-      <span>Отмеченные имена: {{ checkedNames }}</span>
-    </div>
+      <h2>Сводный отчет</h2>
+      <div id="v-model-multiple-checkboxes">
+        <input type="checkbox" id="jack" value="Джек" v-model="checkedNames" />
+        <label for="jack">Джек</label>
+        <input type="checkbox" id="john" value="Джон" v-model="checkedNames" />
+        <label for="john">Джон</label>
+        <input type="checkbox" id="mike" value="Майк" v-model="checkedNames" />
+        <label for="mike">Майк</label>
+        <br />
+        <span>Отмеченные имена: {{ checkedNames }}</span>
+      </div>
 
-      <label >Дата начала</label> <br>
-      <input class="data-" type="date" placeholder="Введите дату" min="2000.01.01" max="2099.12.12" v-model="period">
-      <input class="data-" type="time" placeholder="Введите время" v-model="period_goal"><br>
-      <label id="labels">Дата окончания</label><br>
-      <input class="data_period" type="date" placeholder="Введите дату" min="2000.01.01" max="2099.12.12" v-model="period">
-      <input class="data_period" type="time" placeholder="Введите время" v-model="period_goal"><br>
-      <span>Список клиентов и пунктов доставки за период: {{ period_ }}</span>
+        <label >Дата начала</label> <br>
+        <input class="data-" type="date" placeholder="Введите дату" min="2000.01.01" max="2099.12.12" v-model="period">
+        <input class="data-" type="time" placeholder="Введите время" v-model="period_goal"><br>
+        <label id="labels">Дата окончания</label><br>
+        <input class="data_period" type="date" placeholder="Введите дату" min="2000.01.01" max="2099.12.12" v-model="period">
+        <input class="data_period" type="time" placeholder="Введите время" v-model="period_goal"><br>
+        <span>Список клиентов и пунктов доставки за период: {{ period_ }}</span>
+      </div>
+      <button href="#zatemnenie"><a href="#zatemnenie">aaaa</a></button>
+    <div>
+      <h2>Продолжение: Детальный отчёт</h2>
+      <button>Выбрать клиентов и их пункты доставки</button>
+      <p>Клиенты:</p>
+      <p>Пункты доставки:</p>
+      <button>Запросить детальный отчёт</button>
     </div>
-    <button href="#zatemnenie"><a href="#zatemnenie">aaaa</a></button>
-  <div>
-    <h2>Продолжение: Детальный отчёт</h2>
-    <button>Выбрать клиентов и их пункты доставки</button>
-    <p>Клиенты:</p>
-    <p>Пункты доставки:</p>
-    <button>Запросить детальный отчёт</button>
-  </div>
-  <div id="zatemnenie">
-    <div id="okno">
+    <div id="zatemnenie">
+      <div id="okno">
 
-      <button><a>Получить клиентов</a></button>
-      <button><a>Получить пункты доставки</a></button><br>
-      <span>Клиенты:</span>
-      <span>Пункты доставки</span>
-      <a href="#" class="close">zhaby</a>
+        <button><a>Получить клиентов</a></button>
+        <button><a>Получить пункты доставки</a></button><br>
+        <span>Клиенты:</span>
+        <span>Пункты доставки</span>
+        <a href="#" class="close">zhaby</a>
+      </div>
     </div>
-  </div>
 </template>
-<script>
-import {createApp} from 'vue'
 
-createApp({
-  data() {
-    return {
-      checkedNames: []
-    }
-  }
-}).mount('#v-model-multiple-checkboxes')
-export default BuhRep
-</script>
+
 <style>
 #zatemnenie {
   background: rgba(102, 102, 102, 0.5);
