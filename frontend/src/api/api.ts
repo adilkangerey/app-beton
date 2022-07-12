@@ -23,25 +23,13 @@ export function createApi () {
   return api
 }
 
-export async function get (rootEntity: string, additionalRoute: string, query: string | null) {
+export async function get (rootEntity: string, params: object | null) {
   return new Promise(function (resolve, reject) {
     if (rootEntity == null) {
       return 'no rootEntity!'
     }
-    if (query != null) {
-      query = '?' + query
-    }
-    if (query == null) {
-      query = ''
-    }
-    if (additionalRoute == null) {
-      additionalRoute = ''
-    }
-    if (additionalRoute != null) {
-      additionalRoute = '/' + additionalRoute
-    }
     createApi()
-      .get(rootEntity + additionalRoute + query)
+      .get(rootEntity, { params })
       .then(response => {
         let entity = ''
         entity = response.data
@@ -53,25 +41,13 @@ export async function get (rootEntity: string, additionalRoute: string, query: s
   })
 }
 
-export async function post (rootEntity: string, additionalRoute: string, query: string | null, data: any) {
+export async function post (rootEntity: string, params: object | null, data: any) {
   return new Promise(function (resolve, reject) {
     if (rootEntity == null) {
       return 'no rootEntity!'
     }
-    if (query != null) {
-      query = '?' + query
-    }
-    if (query == null) {
-      query = ''
-    }
-    if (additionalRoute == null) {
-      additionalRoute = ''
-    }
-    if (additionalRoute != null) {
-      additionalRoute = '/' + additionalRoute
-    }
     createApi()
-      .post(rootEntity + additionalRoute + query, data)
+      .post(rootEntity, data, { params })
       .then(response => {
         let entity = ''
         entity = response.data

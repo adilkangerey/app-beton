@@ -171,7 +171,7 @@ export default {
       //     javaType: "java.lang.String"
       // })
       // parameters variable send
-      return api.post('/barakat/report/barakatmain-fb', '', null, [
+      return api.post('/barakat/report/barakatmain-fb', null, [
         {
           name: 'start',
           value: '2022-07-12T13:20:00', // todo подменить
