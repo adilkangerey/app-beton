@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.*;
 import javax.persistence.*;
 
-import barakat.app.entity.AppOrders;
+import barakat.app.entity.Order;
 import lombok.Data;
 
 /**
@@ -19,7 +19,7 @@ public class Worders implements Serializable {
   @Column(name = "\"ID\"", nullable = false)
   private Integer id;
   @ManyToOne
-  private AppOrders appOrder;
+  private Order appOrder;
   @Column(name = "\"TranspNum\"", nullable = true)
   private String transpnum;
   @Column(name = "\"Driver\"", nullable = true)

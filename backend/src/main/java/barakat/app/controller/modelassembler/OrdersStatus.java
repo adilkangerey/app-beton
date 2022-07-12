@@ -1,19 +1,18 @@
-package barakat.app.entity;
+package barakat.app.controller.modelassembler;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public enum AppOrderStatus {
-    rejected,created,takedforwork,done,partdone;
+public enum OrdersStatus {
+    cancel,created,takedforwork,done,partdone;
     //created -> rejected
     //        -> takedforwork -> done
     //                        -> partdone
-    public List<AppOrderStatus> getPossibleChoises(){
+    public List<OrdersStatus> getPossibleChoises(){
         switch (this){
-            case created:return Arrays.asList(rejected, takedforwork);
+            case created:return Arrays.asList(cancel, takedforwork);
             case takedforwork:return Arrays.asList(done, partdone);
-            case rejected:
+            case cancel:
             case done:
             case partdone:
                 return Arrays.asList();

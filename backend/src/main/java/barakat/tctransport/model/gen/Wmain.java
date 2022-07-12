@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.*;
 import javax.persistence.*;
 
-import barakat.app.entity.AppOrders;
+import barakat.app.entity.Order;
 import lombok.Data;
 
 /**
@@ -25,7 +25,7 @@ public class Wmain implements Serializable {
 
 
   @ManyToOne
-  private AppOrders appOrder;
+  private Order appOrder;
 
 
   /**

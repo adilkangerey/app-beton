@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "\"appOrders\"")
-public class AppOrders implements Serializable {
+public class Order implements Serializable {
 
   @Id
   @Column(nullable = false)
