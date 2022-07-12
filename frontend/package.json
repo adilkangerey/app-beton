@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@kingscode/vuetify-file-manager": "^0.2.6",
+    "axios": "^0.27.2",
     "bootstrap": "5.2.0-beta1",
     "core-js": "^3.8.3",
     "register-service-worker": "^1.7.2",

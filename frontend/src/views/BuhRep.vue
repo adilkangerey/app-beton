@@ -1,6 +1,7 @@
 <template>
   <div id="">
       <h2>Сводный отчет</h2>
+        <button v-on:click="getReportFileName">НАЖМИ и ПОЛУЧИ отчет</button>
         <label >Дата начала</label> <br>
         <input class="data-" type="date" placeholder="Введите дату" min="2000.01.01" max="2099.12.12" v-model="period_d">
         <input class="data-" type="time" placeholder="Введите время" v-model="period_t"><br>
@@ -113,36 +114,94 @@ div{
 }
 </style>
 <script>
-import use from 'vue-router'
+import * as api from '@/api/api'
+import axios from 'axios'
 export default {
   name: 'BuhRep',
-  data(){
-    return{
+  data () {
+    return {
       period_d: '',
       period_t: '',
       period_dd: '',
       period_tt: '',
-      selectedDirectoryId: null
-    };
+      selectedDirectoryId: null,
+      reportFileName: null
+    }
   },
   props: {
     canSelectFile: {
       type: Boolean,
       default: true,
-      required: false,
+      required: false
     }
   },
   methods: {
-    getFolders() {
+    getReportFileName: async function () {
+      // params to send
+      // var data = $data.selectedReport.data
+      // var parameters = [];
+      // if(data.start){
+      // parameters.push({
+      //     name: "start",
+      //     value: data.start.value,
+      //     javaType: "java.sql.Timestamp"
+      // })
+      // }
+      // if(data.end){
+      // parameters.push({
+      //     name: "end",
+      //     value: data.end.value,
+      //     javaType: 'java.sql.Timestamp'
+      // })
+      // }
+      //
+      // //and customer."Name" in ('') and wareh."Name" in ('')
+      // var customfilter = [];
+      // if(data.clients && data.clients.length > 0){
+      //   var client = "'" + data.clients.join("','") + "'";
+      //   customfilter.push('customer."Name" in (' + client + ')')
+      // }
+      // if(data.warehouses && data.warehouses.length > 0){
+      //   var client = "'" + data.warehouses.join("','") + "'";
+      //   customfilter.push('wareh."Name" in (' + client + ')')
+      // }
+      // parameters.push({
+      //     name: "customfilter",
+      //     value: customfilter.length != 0? ' and ' + customfilter.join(' and '): '',
+      //     javaType: "java.lang.String"
+      // })
+      // parameters variable send
+      return api.post('/barakat/report/barakatmain-fb', '', null, [
+        {
+          name: 'start',
+          value: '2022-07-12T13:20:00', // todo подменить
+          javaType: 'java.sql.Timestamp'
+        },
+        {
+          name: 'end',
+          value: '2022-07-12T13:20:00', // todo подменить
+          javaType: 'java.sql.Timestamp'
+        },
+        {
+          name: 'customfilter',
+          value: '', // todo рализовать логику динамического sql
+          javaType: 'java.lang.String'
+        }
+      ]).then(data => {
+        console.log('Пришло название файла ' + data) // todo теперь нужно название файла дернуть
+        this.reportFileName = data
+      })
+    },
+    getFolders () {
       return new Promise(resolve => {
         this.$http.get('url_to_get_the_folders').then((response) => {
-          resolve(response.data.data);
-        });
-      });
+          resolve(response.data.data)
+        })
+      })
     },
-    getFolderContent(directoryId) {
+    getFolderContent (directoryId) {
       return new Promise(resolve => {
-        this.selectedDirectoryId = null;
+        this.selectedDirectoryId = null
         this.$http.get('url_to_get_a_folders_content_with_files').then((response) => {
           resolve(response.data.data.map((file) => {
             return {
@@ -150,39 +209,39 @@ export default {
               name: file.name,
               mime_type: file.media.mime_type,
               download_path: file.download_path,
-              preview_path: file.preview_path,
-            };
-          }));
-        });
-      });
+              preview_path: file.preview_path
+            }
+          }))
+        })
+      })
     },
-    uploadFiles(files) {
+    uploadFiles (files) {
       for (let i = 0; i < files.length; i++) {
-        let formData = new FormData();
-        formData.append('file', files[i]);
-        formData.append('name', files[i].name);
-        this.$http.post('url_to_upload_a_file', formData);
+        const formData = new FormData()
+        formData.append('file', files[i])
+        formData.append('name', files[i].name)
+        this.$http.post('url_to_upload_a_file', formData)
       }
     },
-    selectFile(file) {
-      if(this.canSelectFile) {
-        this.$emit('selected', file);
+    selectFile (file) {
+      if (this.canSelectFile) {
+        this.$emit('selected', file)
       } else {
         window.open(
           file.download_path,
           '_blank'
-        );
+        )
       }
     },
-    downloadFile(file) {
+    downloadFile (file) {
       window.open(
         file.download_path,
         '_blank'
-      );
+      )
     },
-    createFolder(name, parent) {
+    createFolder (name, parent) {
       return new Promise(resolve => {
-        this.$http.post('url_to_create_a_folder', {name: name, directory_id: parent}).then(() => {
+        this.$http.post('url_to_create_a_folder', { name: name, directory_id: parent }).then(() => {
           resolve()
         })
       })
@@ -191,7 +250,6 @@ export default {
   compilerOptions: {
     isCustomElement: tag => console.log(tag)
   }
-};
-//If this is a native custom element, make sure to exclude it from component resolution via compilerOptions.isCustomElement. at <BuhRep onVnodeUnmounted=fn<onVnodeUnmounted> ref=Ref< undefined > > at <RouterView> at <App>
+}
+// If this is a native custom element, make sure to exclude it from component resolution via compilerOptions.isCustomElement. at <BuhRep onVnodeUnmounted=fn<onVnodeUnmounted> ref=Ref< undefined > > at <RouterView> at <App>
 </script>
-
