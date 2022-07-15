@@ -1,7 +1,7 @@
 package barakat.app.controller.modelassembler;
 
 import barakat.app.controller.OrdersController;
-import barakat.app.repository.AppOrdersRepository;
+import barakat.app.repository.OrdersRepository;
 import barakat.app.repository.BkcustomersAppRepository;
 import barakat.app.repository.BkproductsTcRepository;
 import barakat.app.repository.mirrorgen.BkwarehousesTcRepository;
@@ -22,7 +22,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class OrderContentModelAssembler implements RepresentationModelAssembler<OrderContent, EntityModel<OrderContent>> {
 
     @Autowired
-    AppOrdersRepository repositoryOrder;
+    OrdersRepository repositoryOrder;
     @Autowired
     BkcustomersAppRepository repositoryCustomer;
     @Autowired

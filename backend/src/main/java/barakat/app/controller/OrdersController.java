@@ -2,7 +2,7 @@ package barakat.app.controller;
 
 import barakat.app.controller.modelassembler.*;
 import barakat.app.entity.Order;
-import barakat.app.repository.AppOrdersRepository;
+import barakat.app.repository.OrdersRepository;
 import barakat.controller.NotFoundException;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
@@ -35,7 +35,7 @@ import java.util.List;
 @CrossOrigin
 public class OrdersController {
     @Autowired
-    AppOrdersRepository repository;
+    OrdersRepository repository;
     @Autowired
     OrderContentModelAssembler assemblerc;
 
