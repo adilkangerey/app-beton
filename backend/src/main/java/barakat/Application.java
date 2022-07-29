@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -26,6 +27,7 @@ import java.util.List;
 @Log4j2
 @EnableScheduling
 @EnableWebMvc
+@EnableSpringDataWebSupport
 @Profile({"test", "test-pg", "test-hamachi", "test-fb", "proxy"})
 @Configuration
 public class Application implements WebMvcConfigurer {

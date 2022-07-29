@@ -1,7 +1,6 @@
 package barakat.app.entity;
 
-import barakat.tctransport.model.gen.Wmain;
-import barakat.tctransport.model.gen.Worders;
+import barakat.tctransport.model.gen.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -15,9 +14,10 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "\"appOrders\"")
-public class AppOrders implements Serializable {
+public class Order implements Serializable {
 
   @Id
+//  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(nullable = false)
   private Integer id;
 //
@@ -36,14 +36,17 @@ public class AppOrders implements Serializable {
 //    @Column
 //    private Integer productId;
     /*ТСТранспорт*/
-    @Column
-    private Integer bkProductId;
+    @OneToOne
+    @JoinColumn(name = "bkProductId")
+    private Bkproducts bkProduct;
     /*ТСТранспорт*/
-    @Column
-    private Integer bkCustomerId;
+    @OneToOne
+    @JoinColumn(name = "bkCustomerId")
+    private Bkcustomers bkCustomer;
     /*ТСТранспорт*/
-    @Column
-    private Integer bkWarehouseId;
+    @OneToOne
+    @JoinColumn(name = "bkWarehouseId")
+    private Bkwarehouses bkWarehouse;
 //  @Column(name = "\"VendorLink\"", nullable = true)
 //  private Integer vendorlink;
 //  @Column(name = "\"TransporterLink\"", nullable = true)
@@ -68,6 +71,8 @@ public class AppOrders implements Serializable {
     //тип конструкции
     @Column
     private String construction;
+    @Column
+    private String rejectReason;
 
     /*Осадок конуса*/
     @Column
@@ -82,7 +87,8 @@ public class AppOrders implements Serializable {
     private LocalDateTime endTime;
     private Integer intervalMinutes;
     private String intervalComment;
-
+    /*AppOrderStatus*/
+    private String status;
 //  @Column(name = "\"Author\"", nullable = false)
 //  private Integer author;
 //  @Column(name = "\"Tare\"", nullable = true)
@@ -95,9 +101,9 @@ public class AppOrders implements Serializable {
 
   Worders gettctransport(){
     Worders worders = new Worders();
-    worders.setProductlink(bkProductId);
-    worders.setCustomerlink(bkCustomerId);
-    worders.setWarehouselink(bkWarehouseId);
+//    worders.setProductlink(bkProductId);
+//    worders.setCustomerlink(bkCustomerId);
+//    worders.setWarehouselink(bkWarehouseId);
     worders.setWarehouseoutlink(bkWarehouseOutId);
     worders.setCreateat(Timestamp.valueOf(createAt));
 

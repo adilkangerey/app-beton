@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.*;
 import javax.persistence.*;
 
-import barakat.app.entity.AppOrders;
+import barakat.app.entity.Order;
 import lombok.Data;
 
 /**
@@ -25,8 +25,7 @@ public class Wmain implements Serializable {
 
 
   @ManyToOne
-//  @JoinColumn(name="appOrder_id")
-  private AppOrders appOrder;
+  private Order appOrder;
 
 
   /**
@@ -271,4 +270,5 @@ public class Wmain implements Serializable {
   private Integer carcassType;
   @Column(name = "\"DOC_ISSUE_AT\"", nullable = true)
   private Timestamp docIssueAt;
+
 }

@@ -1,9 +1,7 @@
 package barakat.app.repository.mirrorgen;
 
 import barakat.app.model.Catalog;
-import barakat.app.view.AppOrdersDetail;
 import barakat.tctransport.model.gen.Bkwarehouses;
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
